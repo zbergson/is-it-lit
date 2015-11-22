@@ -78,4 +78,34 @@ app.post('/users', function(req, res) {
       });
     }
   });
-})
+});
+
+app.post("/login", function(req, res) {
+    var requestEmail = req.body.email;
+    var requestPassword = req.body.password;
+    User.findOne({"email": requestEmail}).exec(function(err, user) {
+        var requestPasswordHash = md5(requestPassword);
+        if (user != null && requestPasswordHash == user.password_hash) {
+            res.cookie("loggedinId", user.id);
+            res.send({
+              id: user.id,
+              username: user.username,
+            });
+        } else {
+            res.status(400);
+            res.send("didn't work :(");
+        }
+    })
+});
+
+
+
+
+
+
+
+
+
+
+
+

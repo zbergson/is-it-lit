@@ -1,30 +1,89 @@
 $(function() {
 
+//==========================================================================
+//======================start sign up process================================
+//==========================================================================
+
 $('#signup-button').click(function() {
 	console.log("testing signup button");
 
 	showSignUpForm();
 
-})
+});
+
+//==========================================================================
+//=======================start sign in process==============================
+//==========================================================================
+
+$('#signin-button').click(function(){
+
+	console.log('testing sign in button');
+	showSignInForm();
+
+});
+
+//==========================================================================
+//=======================logout=============================================
+//==========================================================================
 
 
-	var showSignUpForm = function() {
+$('#signout').click(function(){
+	Cookies.remove('loggedinId');
+	location.reload();
+});
 
-		$('#signup-button').hide();
+//==========================================================================
+//=======================Render sign in form================================
+//==========================================================================
 
-		var template = Handlebars.compile($('#signup-form-template').html());
+var showSignInForm = function() {
 
-		$('#form-container').append( template );
+	$('#signin-button').hide();
+	$('#signup-button').hide();
+	$('#signup-form').remove();
 
-		$('#signup-submit').click(function() {
-			console.log("testing submit");
+	var template = Handlebars.compile($('#signin-form-template').html());
 
-			$('#signup-form-template').hide();
+	$('#form-container').append( template );
 
-			signupSubmit();
-		})
+	$('#signin-submit').click(function() {
+		console.log("testing submit");
 
-	}
+		$('#signin-form-template').hide();
+
+		signinSubmit();
+	});
+
+}
+
+
+//==========================================================================
+//=======================Render sign up form================================
+//==========================================================================
+
+var showSignUpForm = function() {
+
+	$('#signup-button').hide();
+
+	var template = Handlebars.compile($('#signup-form-template').html());
+
+	$('#form-container').append( template );
+
+	$('#signup-submit').click(function() {
+		console.log("testing submit");
+		
+
+		$('#signup-form-template').hide();
+
+
+		signupSubmit();
+	});
+
+};
+
+//==========================================================================
+//=======================AJAX post request for sign up======================
+//==========================================================================
 
 	var signupSubmit = function() {
 
@@ -48,10 +107,50 @@ $('#signup-button').click(function() {
 			method: 'POST',
 			dataType: 'json',
 			data: user
-		}).done( console.log(user.username, " was created!!!!! good job") );
+		}).done(loggedIn);
+
+	};
+
+//==========================================================================
+//=======================AJAX post request for sign in======================
+//==========================================================================
+
+var signinSubmit = function() {
+		var emailInput = $('#email').val();
+		var passwordInput = $('#password').val();
+		console.log('here at signinsubmit');
+		event.preventDefault();
+
+		var userLogin = {
+			email: emailInput,
+			password: passwordInput
+		};
+
+    $.ajax({
+			url: 'http://localhost:3000/login',
+			type: 'POST',
+			dataType: 'json',
+			data: userLogin
+		}).done(loggedIn).fail(function(){
+			alert('wrong password or email!');
+		});
+};
+
+//==========================================================================
+//=======================Render logged in page==============================
+//==========================================================================
+
+var loggedIn = function(data) {
+	$('body').append('welcome ' + data.username);
+	$('#signup-button').hide();
+	$('#signin-button').hide();
+	$('#signin-form').remove();
+	$('#signup-form').remove();
+	$('#signout').show();
+}
 
 
-	}
+
 
 
 
