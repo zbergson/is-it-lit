@@ -18,8 +18,12 @@
   },
   "homepage": "https://github.com/zbergson/is-it-lit#readme",
   "dependencies": {
+    "bandsintown": "^1.0.1",
     "body-parser": "^1.14.1",
+    "cookie-parser": "^1.4.0",
     "express": "^4.13.3",
+    "md5": "^2.0.0",
+    "moment": "^2.10.6",
     "mongoose": "^4.2.6",
     "morgan": "^1.6.1"
   }
