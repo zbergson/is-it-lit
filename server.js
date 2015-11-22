@@ -98,9 +98,31 @@ app.post("/login", function(req, res) {
     })
 });
 
+app.post('/users/:id/reviews', function(req, res) {
+	var review = new Review ({
+		stars: req.body.stars,
+		content: req.body.content,
+		user_id: req.body.user_id
+	});
 
+	review.save(function(err) {
+		if (err) {
+			console.log(err);
+			res.statusCode = 503;
+		} else {
+			console.log("created review");
+			res.send({
+				stars: review.stars,
+				content: review.content
+			});
+			User.findOne(req.params.id).exec(function(err, user) {
+				user.reviews.push(review);
+				user.save();
+			});
+		};
+	});
 
-
+});
 
 
 

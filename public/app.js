@@ -101,6 +101,7 @@ var showSignUpForm = function() {
 	        password: passwordInput,
 	        image: imageInput
 	    };
+	    event.preventDefault();
 
 	    $.ajax({
 			url: 'http://localhost:3000/users',
@@ -147,9 +148,56 @@ var loggedIn = function(data) {
 	$('#signin-form').remove();
 	$('#signup-form').remove();
 	$('#signout').show();
+	$("#new-review").show();
+	$("#new-review").click(function() {
+		showReviewForm();
+	});
 }
 
 
+//==========================================================================
+//===========================Create new review==============================
+//==========================================================================
+
+
+var showReviewForm = function() {
+
+	$('#new-review').hide();
+
+	var template = Handlebars.compile($('#review-form-template').html());
+
+	$('#form-container').append( template );
+
+	$('#review-submit').click(function() {
+		console.log("testing submit");
+		
+
+		$('#review-form-template').hide();
+
+
+		createReview();
+	});
+
+};
+
+
+var createReview = function() {
+	var starsInput = parseInt($('#stars').val());
+	var contentInput = $('#content').val();
+	var userIdInput = Cookies.get("loggedinId");
+	event.preventDefault();
+	var reviewData = {
+		stars: starsInput,
+		content: contentInput,
+		user_id: userIdInput
+	};
+		$.ajax({
+			url: "http://localhost:3000/users/" + userIdInput + "/reviews",
+			type: "POST",
+			dataType: 'json',
+			data: reviewData
+		}).done(console.log("created review!"));
+}
 
 
 
