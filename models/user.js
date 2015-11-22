@@ -4,6 +4,7 @@ var userSchema = new mongoose.Schema({
   password_hash: String,
   username: String,
   email: String,
+  image: String,
   concerts: Array,
   reviews: Array,
   created_at: { type: Date, default: Date.now },
