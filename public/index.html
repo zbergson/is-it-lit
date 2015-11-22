@@ -1,8 +1,53 @@
 <html>
 <head>
-	<title>Test</title>
+	<title>tktktktktktkttk</title>
+
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.0.4/js.cookie.js"></script>
+	<script src="app.js"></script>
+
+
 </head>
 <body>
-	<h1>test</h1>
+
+	<button id="signup-button">Sign up!</button>
+
+	<div id="form-container"></div>
+
+	<template id="signup-form-template">
+
+		<form id="signup-form">
+
+			<div class="form-group">
+			    <label for="exampleInputEmail1">Email address</label>
+			    <input type="email" class="form-control" id="email" placeholder="Email">
+			 </div>
+
+			<div class="form-group">
+			    <label for="exampleInputEmail1">Username</label>
+			    <input type="text" class="form-control" id="username" placeholder="Username">
+			</div>
+
+			<div class="form-group">
+			    <label for="exampleInputPassword1">Password</label>
+			    <input type="password" class="form-control" id="password" placeholder="Password">
+			</div>
+
+			<div class="form-group">
+			    <label for="exampleInputEmail1">Profile Picture</label>
+			    <input type="text" class="form-control" id="profilePicture" placeholder="Image">
+			</div>
+
+			<button type="submit" class="btn btn-default" id="signup-submit">Submit</button>
+		</form>
+
+	</template>
+
+
+
 </body>
 </html>
