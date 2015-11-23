@@ -37,9 +37,16 @@ var Concert = require('./models/concert');
 // LISTENER
 app.listen(port);
 
-app.get('/', function(req, res) {
+// ============================================
+// Get ten most recent reviews
+// ============================================
 
+app.get('/reviews', function(req, res) {
+  Review.find({}).populate('user_id').exec(function(err, reviews) {
+      res.send(reviews);
+  });
 });
+
 
 // app.get('/test', function(req, res) {
 // 	bandsintown
@@ -49,6 +56,10 @@ app.get('/', function(req, res) {
 //    			res.send(events);
 //   	});
 // });
+
+// ============================================
+// Add new user
+// ============================================
 
 app.post('/users', function(req, res) {
 
@@ -80,6 +91,10 @@ app.post('/users', function(req, res) {
   });
 });
 
+// ============================================
+// Login
+// ============================================
+
 app.post("/login", function(req, res) {
     var requestEmail = req.body.email;
     var requestPassword = req.body.password;
@@ -97,6 +112,10 @@ app.post("/login", function(req, res) {
         }
     })
 });
+
+// ============================================
+// Add review
+// ============================================
 
 app.post('/users/:id/reviews', function(req, res) {
 	var review = new Review ({
