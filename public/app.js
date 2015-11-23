@@ -180,6 +180,10 @@ var showReviewForm = function() {
 
 };
 
+//==========================================================================
+//=======================AJAX post request for adding review================
+//==========================================================================
+
 
 var createReview = function() {
 	var starsInput = parseInt($('#stars').val());
@@ -199,7 +203,22 @@ var createReview = function() {
 		}).done(console.log("created review!"));
 }
 
+//==========================================================================
+//=======================AJAX get request for listing reviews===============
+//==========================================================================
 
+$.get('/reviews', function(data){
+
+	for (i = 0; i < data.length; i++) {
+		console.log(data.length);
+			var source = $("#review-compile-template").html();
+			var template = Handlebars.compile(source);
+			var context = {stars: data[i]['stars'], username: data[i]['user_id'].username, content: data[i]['content'] }
+			var html = template(context);
+			$('body').append(html);
+	}
+
+});
 
 
 });
