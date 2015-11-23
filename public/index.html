@@ -1,6 +1,6 @@
 <html>
 <head>
-	<title>tktktktktktkttk</title>
+	<title>is it lit?</title>
 
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
@@ -9,26 +9,57 @@
 	<script type="text/javascript" src="https://cdn.rawgit.com/krisk/fuse/master/src/fuse.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.0.4/js.cookie.js"></script>
+	<link href='https://fonts.googleapis.com/css?family=Raleway:400,800,600,200' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="style.css">
 	<script src="app.js"></script>
 
 
 </head>
 <body>
 
-	<button id="signup-button">Sign up!</button>
+	<div class="navbar navbar-inverse navbar-fixed-top scrollclass" id="menu" >
+    <div class="container">
+      
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#" id="signup-button">SIGN UP</a></li>
+          <li><a href="#" id="signin-button">LOG IN</a></li>
+          <li><a href="#" id="signout" style="display: none">LOG OUT</a></li>
+        </ul>
+      </div>
+     
+    </div>
+  </div>
+
+
+
+  <div class="jumbotron">
+		<div class="header-text-container">
+			<h1 id="jumbotron-header">is it lit?</h1> 
+    	<p id="jumbotron-text">a lit-ness test for concerts you've attended.</p>
+    	<h1 id="emoji">&#128293;&#128293;&#128293;</h1> 
+		</div>
+		<!-- Search Bar -->
+
+		<div class="search-container">
+			<form class="navbar-form" role="search">
+			  <div class="form-group">
+			    <input type="text" class="form-control" placeholder="Search for an artist" id="search-bar">
+			  </div>
+			  <button type="submit" class="btn btn-default" id="search-submit">Submit</button>
+			</form>
+			 <a href="#" class="btn btn-lg custom-btn-1" id="new-review" style="display: none">NEW REVIEW</a>  
+		</div>
+
+  </div>
+  
+	<!-- <button id="signup-button">Sign up!</button>
 	<button id="signin-button">Sign in!</button>
-	<button id="signout" style="display: none">Logout!</button>
-	<button id="new-review" style="display: none">New review!</button>
+	<button id="signout" style="display: none">Logout!</button> -->
+	<!-- <button id="new-review" style="display: none">New review!</button> -->
 
 
-	<!-- Search Bar -->
-
-	<form class="navbar-form navbar-left" role="search">
-	  <div class="form-group">
-	    <input type="text" class="form-control" placeholder="Search" id="search-bar">
-	  </div>
-	  <button type="submit" class="btn btn-default" id="search-submit">Submit</button>
-	</form>
+	
 
 	<!-- Containers -->
 
