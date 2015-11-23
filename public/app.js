@@ -333,16 +333,45 @@ var showSearchResults = function(data) {
 	$('#artist-container').show();
 	$('#artist-name').text( data.name );
 
-	$.ajax({
-		url: "http://api.bandsintown.com/artists/" + data.name + "/events?format=json&app_id=stannis&date=2009-01-01," + moment().format(),
-		type: "GET",
-		dataType: 'jsonp'
-	}).done(loadConcerts)
+	$('#artist-name').click(function(){
+
+		$.ajax({
+			url: "http://api.bandsintown.com/artists/" + data.name + "/events?format=json&app_id=stannis&date=2009-01-01," + moment().format(),
+			type: "GET",
+			dataType: 'jsonp'
+		}).done(loadConcerts)
+
+	});
 	
 };
 
+
+
+
+
 var loadConcerts = function(data) {
 	console.log(data);
+	$('#venue-info').show();
+	if(data.length < 10) {
+		$('#venue-info').empty();
+		for (i = 0; i < data.length; i++) {
+			$('#venue-name').text(data[i]['venue']['name']);
+			$('#venue-city').text(data[i]['venue']['city']);
+			$('#venue-region').text(data[i]['venue']['region']);
+			$('#venue-country').text(data[i]['venue']['country']);
+		}
+	}
+
+	else {
+		$('#venue-info').empty();
+		for (i = data.length - 1 ; i > data.length - 10; i--) {
+			$('#venue-info').append("<div id='venue-container'></div>")
+			$('#venue-container').append("<li>" + data[i]['venue']['name'] + "</li>");
+			$('#venue-container').append("<li>" + data[i]['venue']['city'] + "</li>");
+			$('#venue-container').append("<li>" + data[i]['venue']['region'] + "</li>");
+			$('#venue-container').append("<li>" + data[i]['venue']['country'] + "</li>" + "<br />");
+		}
+	}
 }
 
 
