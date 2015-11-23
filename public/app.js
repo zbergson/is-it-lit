@@ -1,5 +1,6 @@
 $(function() {
 
+
 //==========================================================================
 //======================start sign up process================================
 //==========================================================================
@@ -142,7 +143,7 @@ var signinSubmit = function() {
 //==========================================================================
 
 var loggedIn = function(data) {
-	$('body').append('welcome ' + data.username);
+	$('#username-container').html('Welcome, ' + data.username);
 	$('#signup-button').hide();
 	$('#signin-button').hide();
 	$('#signin-form').remove();
@@ -200,6 +201,18 @@ var createReview = function() {
 }
 
 
+var checkCookies = function() {
 
+	if (Cookies.get("loggedinId") != null) {
+		$.ajax({
+			url: "/users/" + Cookies.get("loggedinId"),
+			method: "GET",
+			dataTyp: "json"
+		}).done(loggedIn);
+		
+	}
+}
+
+checkCookies();
 
 });
