@@ -34,6 +34,17 @@ $('#signout').click(function(){
 });
 
 //==========================================================================
+//=======================search submit click event==========================
+//==========================================================================
+
+$('#search-submit').click(function() {
+	console.log("Testing search submit")
+	$('#search-results-container').empty();
+	searchSubmit();
+});
+
+
+//==========================================================================
 //=======================Render sign in form================================
 //==========================================================================
 
@@ -296,9 +307,32 @@ checkCookies();
 //=======================Robbies's Work Space===============================
 //==========================================================================
 
+var searchSubmit = function() {
+	console.log("testing searchSubmit function");
+	event.preventDefault();
 
+	var searchInput = $('#search-bar').val();
 
+	var searchVals = {
+		artist: searchInput
+	}
 
+	$.ajax({
+		url: "http://localhost:3000/search",
+		type: "POST",
+		dataType: 'json',
+		data: searchVals
+	}).done( showSearchResults );
+
+}
+
+var showSearchResults = function(data) {
+	console.log("testing show result function");
+	console.log(data);
+
+	$('#search-results-container').append( data.name );
+
+}
 
 
 

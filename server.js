@@ -159,9 +159,23 @@ app.get('/users/:id', function(req, res) {
   
 });
 
+// ============================================
+// Search route
+// ============================================
 
+app.post('/search', function(req, res) {
 
+  var searchText = {
+    artist: req.body.artist
+  }
 
+  bandsintown
+    .getArtist(searchText.artist)
+    .then(function(artists) {
+      console.log(artists);
+      res.send(artists);
+    });
+});
 
 
 
