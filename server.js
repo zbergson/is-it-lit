@@ -144,7 +144,7 @@ app.post('/users/:id/reviews', function(req, res) {
 });
 
 app.get('/users/:id', function(req, res) {
-  User.findOne(req.params.id).exec(function(err, user) {
+  User.findById(req.params.id).exec(function(err, user) {
     if (err) {
       console.log(err);
       res.statusCode = 503;
