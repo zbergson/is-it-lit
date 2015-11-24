@@ -271,6 +271,11 @@ $.get('/reviews', function(data){
 		reviewsContainer.append(html);
 	}
 
+	for (var i = 0; i < $(".edit-review").length; i ++) {
+		$(".edit-review").click(function() {
+			editReviewForm();
+		})
+	}
 });
 
 
@@ -305,6 +310,45 @@ var homeReset = function() {
 	$("#reviews-container").show();
 	$("#username-container").show();
 };
+
+
+var editReviewForm = function() {
+	$('#form-container').show();
+	var template = Handlebars.compile($('#edit-review-template').html());
+
+	$('#form-container').append( template );
+
+	$('#edit-review-submit').click(function() {
+		console.log("testing submit");
+		
+
+		$('#review-form-template').hide();
+
+
+		editReview();
+	});
+
+};
+
+var editReview = function() {
+	var starsInput = parseInt($('#stars').val());
+	var contentInput = $('#content').val();
+	var reviewId = $("#edit-review").attr("data-id");
+
+	var reviewData = {
+		stars: starsInput,
+		content: contentInput
+	};
+
+		$.ajax({
+			url: "http://localhost:3000/users/" + userIdInput + "/reviews/" + reviewId,
+			type: "PUT",
+			dataType: 'json',
+			data: reviewData
+		}).done(console.log("edited review!"));
+};
+
+
 
 
 

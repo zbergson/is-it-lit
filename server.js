@@ -213,3 +213,74 @@ app.put('/users/:id', function(req, res) {
 })
 
 
+// ============================================
+// Edit review
+// ============================================
+
+app.put('/users/:id/reviews/:review_id', function(req, res) {
+
+        Review.findByIdAndUpdate(req.params.review_id, req.body, function(err, order) {
+
+            if (err) {
+
+                console.log(err);
+
+            }
+
+
+        });
+
+        User.findById(req.params.id).then(function(user) {
+
+            user.reviews.forEach(function(review) {
+
+                if (review._id == req.params.review_id) {
+                    var oldReview = {
+                      stars: review.stars,
+                      content: review.content,
+                      user_id: review.user_id,
+                      event_id: review.event_id,
+                      datetime: review.datetime,
+                      artist: review.artist,
+                      venue: {
+                        name: review.venue.venueName,
+                        city: review.venue.venueCity,
+                        region: review.venue.venueRegion,
+                        country: review.venue.venueCountry
+                      }
+                    };
+                    
+                    var newReview = new Review ({
+                      stars: req.body.stars,
+                      content: req.body.content,
+                      user_id: oldReview.user_id,
+                      event_id: oldReview.event_id,
+                      datetime: oldReview.datetime,
+                      artist: oldReview.artist,
+                      venue: {
+                        name: oldReview.venue.venueName,
+                        city: oldReview.venue.venueCity,
+                        region: oldReview.venue.venueRegion,
+                        country: oldReview.venue.venueCountry
+                      }
+                    });
+                    
+                    var index = user.reviews.indexOf(order);
+                    user.reviews.splice(index, 1);
+                    user.save();
+
+                    user.reviews.push(newReview);
+
+                    user.save();
+
+                    res.send(user);
+
+                }
+
+            });
+
+        });
+
+    });
+
+// });
