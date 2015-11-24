@@ -156,7 +156,6 @@ app.get('/users/:id', function(req, res) {
       })
     };
   });
-  
 });
 
 // ============================================
@@ -177,5 +176,15 @@ app.post('/search', function(req, res) {
     });
 });
 
+// ============================================
+// Edit user
+// ============================================
+
+app.put('/users/:id', function(req, res) {
+  User.findOneAndUpdate( {_id: req.params.id}, req.body, function(err, user) {
+    console.log( user )
+    res.send( user );
+  });
+})
 
 
