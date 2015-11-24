@@ -52,6 +52,16 @@ $('#search-submit').click(function() {
 	searchSubmit();
 });
 
+//==========================================================================
+//=======================search submit click event==========================
+//==========================================================================
+
+$('#edit-profile').click(function() {
+	console.log("Testing edit profile button")
+	//calls function to show edit form
+	getOldInfo();
+})
+
 
 //==========================================================================
 //=======================Render sign in form================================
@@ -112,21 +122,21 @@ var showSignUpForm = function() {
 
 		var emailInput = $("input[id='email']").val()
 
-	    var usernameInput = $("input[id='username']").val()
+	  var usernameInput = $("input[id='username']").val()
 
-	    var passwordInput = $("input[id='password']").val()
+	  var passwordInput = $("input[id='password']").val()
 
-	    var imageInput = $("input[id='profilePicture']").val()
+	  var imageInput = $("input[id='profilePicture']").val()
 
-	    var user = {
-	    	email: emailInput,
-	        username: usernameInput,
-	        password: passwordInput,
-	        image: imageInput
-	    };
-	    event.preventDefault();
+	  var user = {
+	    email: emailInput,
+	    username: usernameInput,
+	    password: passwordInput,
+	    image: imageInput
+	  };
+	  event.preventDefault();
 
-	    $.ajax({
+	  $.ajax({
 			url: 'http://localhost:3000/users',
 			method: 'POST',
 			dataType: 'json',
@@ -402,8 +412,6 @@ var showSearchResults = function(data) {
 	
 };
 
-
-
 var loadConcerts = function(data) {
 	var resultDiv = $("#concert-info");
 	
@@ -430,6 +438,63 @@ var loadConcerts = function(data) {
 		$(createReview[i]).click(showReviewForm);
 	};
 }
+
+var getOldInfo = function() {
+	var id = Cookies.get("loggedinId");
+
+	$.ajax({
+		url: "http://localhost:3000/users/" + id,
+		method: "GET",
+		dataType: 'json',
+	}).done( updateForm );
+
+
+}
+
+var updateForm = function(data) {
+	$('#edit-profile').hide();
+
+	var template = Handlebars.compile($('#edit-user-template').html());
+
+	$('#edit-container').append( template(data) );
+
+	$('#edit-user-submit').click(function() {
+		console.log("testing edit-user-submit");
+		$('#edit-container').hide();
+		editUser();
+	});
+
+}
+
+var editUser = function(data) {
+
+	var id = Cookies.get("loggedinId");
+	console.log(id);
+
+	var editedPasswordHash = $("input[id='edited-password']").val()
+	var editedUsername = $("input[id='edited-username']").val()
+	var editedEmail = $("input[id='edited-email']").val()
+	var editedImage = $("input[id='edited-profilePicture']").val()
+
+	var editedUser = {
+		id: id,
+		edited_password_hash: editedPasswordHash,
+	  edited_username: editedUsername,
+	  edited_email: editedEmail,
+	  edited_image: editedImage
+	}
+
+	console.log(editedUser);
+
+	$.ajax({
+		url: "http://localhost:3000/users/" + id,
+		method: "PUT",
+		data: editedUser,
+	}).done( showProfilePage );
+}
+
+
+
 
 
 
