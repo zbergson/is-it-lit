@@ -168,44 +168,36 @@ var loggedIn = function(data) {
 
 
 //==========================================================================
-//===========================Create new review==============================
-//==========================================================================
-
-
-var showReviewForm = function() {
-
-	$('#new-review').hide();
-
-	var template = Handlebars.compile($('#review-form-template').html());
-
-	$('#form-container').append( template );
-
-	$('#review-submit').click(function() {
-		console.log("testing submit");
-		
-
-		$('#review-form-template').hide();
-
-
-		createReview();
-	});
-
-};
-
-//==========================================================================
 //=======================AJAX post request for adding review================
 //==========================================================================
 
 
 var createReview = function() {
+	$('#review-form-template').hide();
 	var starsInput = parseInt($('#stars').val());
 	var contentInput = $('#content').val();
 	var userIdInput = Cookies.get("loggedinId");
+	var eventIdInput = $(this).parent().parent().attr("data-id");
+	var datetimeInput = $(this).parent().parent().attr("datetime");
+	var artistInput = $(this).parent().parent().attr("artist");
+	var venueNameInput = $(this).parent().parent().attr("venue-name");
+	var venueCityInput = $(this).parent().parent().attr("venue-city");
+	var venueRegionInput = $(this).parent().parent().attr("venue-region");
+	var venueCountryInput = $(this).parent().parent().attr("venue-country");
+
+	console.log(eventIdInput, datetimeInput, artistInput, venueNameInput, venueCityInput, venueRegionInput, venueCountryInput);
 	event.preventDefault();
 	var reviewData = {
 		stars: starsInput,
 		content: contentInput,
-		user_id: userIdInput
+		user_id: userIdInput,
+		event_id: eventIdInput,
+		datetime: datetimeInput,
+		artist: artistInput,
+		venueName: venueNameInput,
+		venueCity: venueCityInput,
+		venueRegion: venueRegionInput,
+		venueCountry: venueCountryInput
 	};
 		$.ajax({
 			url: "http://localhost:3000/users/" + userIdInput + "/reviews",
@@ -214,6 +206,28 @@ var createReview = function() {
 			data: reviewData
 		}).done(console.log("created review!"));
 }
+
+//==========================================================================
+//===========================Create new review==============================
+//==========================================================================
+
+
+var showReviewForm = function() {
+	console.log("compiling form");
+	console.log(this);
+	// console.log(this).parent();
+	$('#new-review').hide();
+
+	var template = Handlebars.compile($('#review-form-template').html());
+
+	$(this).parent().append( template );
+	// $('#form-container').append( template );
+
+	$('#review-submit').click(createReview);
+	
+
+};
+
 
 //==========================================================================
 //=======================AJAX get request for listing reviews===============
@@ -350,32 +364,54 @@ var showSearchResults = function(data) {
 };
 
 
+// var getComplaints = function() {
+// 	$.ajax({
+// 		url: "http://localhost:3000/complaints",
+// 		method: "GET",
+// 		dataType: "json"
+// 	}).done(renderComplaints);
+// };
 
+// var renderComplaints = function(data) {
+// 	var resultDiv = $('#horizontal');
+// 	var complaintTemplate = $("#complaint-template");
+// 	complaintContainer.empty();
+// 	complaintContainer.show();
+// 	$('#new-instructor-link').hide();
+// 	$('#new-complaint-link').show();
+
+// 	var complaintTemplate = Handlebars.compile($('#complaint-template').html());
+// 	for(var i=0;i<data.length;i++) {
+// 		resultDiv.append(complaintTemplate(data[i]))
+// 	};
+// };
 
 
 var loadConcerts = function(data) {
-	console.log(data);
-	$('#venue-info').show();
+	var resultDiv = $("#concert-info");
+	
+	resultDiv.empty();
+	resultDiv.show();
+
+	var concertTemplate = Handlebars.compile($("#concert-template").html());
 	if(data.length < 10) {
-		$('#venue-info').empty();
+		$('#concert-info').empty();
 		for (i = 0; i < data.length; i++) {
-			$('#venue-info').append(data[i]['venue']['name']);
-			$('#venue-info').append(data[i]['venue']['city']);
-			$('#venue-info').append(data[i]['venue']['region']);
-			$('#venue-info').append(data[i]['venue']['country']);
+			resultDiv.append(concertTemplate(data[i]));
 		}
 	}
 
 	else {
-		$('#venue-info').empty();
+		$('#concert-info').empty();
 		for (i = data.length - 1 ; i > data.length - 10; i--) {
-			// $('#venue-info').append("<div id='venue-container'></div>")
-			$('#venue-info').append("<li>" + data[i]['venue']['name'] + "</li>");
-			$('#venue-info').append("<li>" + data[i]['venue']['city'] + "</li>");
-			$('#venue-info').append("<li>" + data[i]['venue']['region'] + "</li>");
-			$('#venue-info').append("<li>" + data[i]['venue']['country'] + "</li>" + "<br />");
+			resultDiv.append(concertTemplate(data[i]));
 		}
 	}
+
+	var createReview = $(".create-review")
+	for (var i = 0; i < createReview.length; i++) {
+		$(createReview[i]).click(showReviewForm);
+	};
 }
 
 
