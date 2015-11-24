@@ -1,5 +1,5 @@
 .jumbotron {
-	background-image: url(isitlit_jumbotron_seafoam_faded.jpg);
+	background-image: linear-gradient(rgba(0,0,0, 0.4), rgba(0,0,0,0.4)), url(isitlit_jumbotron_seafoam_faded.jpg);
 	height: 600px;
 	background-size: cover;
 	background-position: center;
@@ -12,11 +12,13 @@
 	font-size: 90px;
 	padding-top: 0px;
 	font-weight: 800;
+	color: white;
 }
 
 #jumbotron-text {
 	font-size: 40px;
 	font-weight: 400;
+	color: white;
 }
 
 #emoji {
@@ -35,6 +37,19 @@
 .search-container .form-group {
 	width: 40%;
 }
+
+#signout {
+	color: white;
+}
+
+#signup-button {
+	color: white;
+}
+
+#signup-button #signin-button {
+	color: white;
+}
+
 
 /*=============================================================
     Authour URI: www.binarytheme.com

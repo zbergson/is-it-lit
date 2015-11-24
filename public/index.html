@@ -73,8 +73,7 @@
 
 	<div id="search-results-container">
 		<ul id="artist-container" style="display: none">
-			<li id="artist-name"></li><br />
-			<div id="venue-info" style="display:none">
+			<div id="concert-info" style="display:none">
 			</div>
 		</ul>
 	</div>
@@ -179,7 +178,17 @@
 			</div>
 		</template>
 
+	<template id="concert-template">
+		<div class="concert-container" data-id="{{id}}" datetime="{{datetime}}" artist="{{artists.0.name}}" venue-name="{{venue.name}}" venue-city="{{venue.city}}" venue-region="{{venue.region}}" venue-country="{{venue.country}}">
+		
+			<p>{{venue.name}}</p>
+			<p>{{venue.city}}</p>
+			<p>{{venue.region}}</p>
+			<p>{{venue.country}}</p>
+			<p class="create-review">CREATE REVIEW</p>
+		</div>
 
+	</template>
 
 </body>
 </html>

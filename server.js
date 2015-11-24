@@ -121,7 +121,16 @@ app.post('/users/:id/reviews', function(req, res) {
 	var review = new Review ({
 		stars: req.body.stars,
 		content: req.body.content,
-		user_id: req.body.user_id
+		user_id: req.body.user_id,
+    event_id: req.body.event_id,
+    datetime: req.body.datetime,
+    artist: req.body.artist,
+    venue: {
+      name: req.body.venueName,
+      city: req.body.venueCity,
+      region: req.body.venueRegion,
+      country: req.body.venueCountry
+    }
 	});
 
 	review.save(function(err) {
