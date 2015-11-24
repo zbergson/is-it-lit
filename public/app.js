@@ -1,5 +1,5 @@
 $(function() {
-	event.stopPropagation();
+
 
 //==========================================================================
 //======================start sign up process================================
@@ -39,13 +39,9 @@ $('#signout').click(function(){
 
 $('#search-submit').click(function() {
 	console.log("Testing search submit")
-	$('#artist-name').remove();
-	$('#venue-info').empty();
-	event.stopPropagation();
+	$('#artist-name').empty();
 	searchSubmit();
 });
-
-
 
 
 //==========================================================================
@@ -227,14 +223,14 @@ $.get('/reviews', function(data){
 
 
 	for (i = 0; i < data.length; i++) {
-		
+		console.log(data.length);
 		var source = $("#review-compile-template").html();
 		var template = Handlebars.compile(source);
 		var context = {stars: data[i]['stars'], username: data[i]['user_id'].username, content: data[i]['content'] }
 		var html = template(context);
 		$('body').append(html);
 	}
-	event.stopPropagation();
+
 });
 
 
@@ -248,8 +244,6 @@ var checkCookies = function() {
 		}).done(loggedIn);
 		
 	}
-
-	event.stopPropagation();
 }
 
 checkCookies();
@@ -314,8 +308,10 @@ checkCookies();
 //==========================================================================
 
 var searchSubmit = function() {
+	$('#venue-info').empty();
 	console.log("testing searchSubmit function");
 	event.preventDefault();
+
 	var searchInput = $('#search-bar').val();
 
 	var searchVals = {
@@ -328,71 +324,58 @@ var searchSubmit = function() {
 		dataType: 'json',
 		data: searchVals
 	}).done( showSearchResults );
-	
+
 }
 
 var showSearchResults = function(data) {
-	
 	console.log("testing show result function");
-	// console.log(data);
-	event.stopPropagation();
+	console.log(data);
 
 	$('#artist-container').show();
-	$('#artist-name').empty();
+	$("#artist-name").remove();
+
+	$('#artist-container').append("<li id='artist-name'></li>");
 	$('#artist-name').html( data.name );
 
-	$('#artist-button').click(function(){
-		console.log('artist button is working');
-		event.stopPropagation();
-		showConcerts(data);
+	$('#artist-name').click(function(){
 
+		$.ajax({
+			url: "http://api.bandsintown.com/artists/" + data.name + "/events?format=json&app_id=stannis&date=2009-01-01," + moment().format(),
+			type: "GET",
+			dataType: 'jsonp'
+		}).done(loadConcerts);
+		
 	});
-
 	
 };
 
 
-var showConcerts = function(data) {
-		event.stopPropagation();
-		$.ajax({
-			url: "http://api.bandsintown.com/artists/" + data.name + "/events?format=json&app_id=stannis&date=2009-01-01," + moment().format() + "/",
-			type: "GET",
-			dataType: 'jsonp'
-		}).done(function(data) {
-			
-			 console.log('show concerts is working');
-
-		});
-
-
-
-}
 
 
 
 var loadConcerts = function(data) {
 	console.log(data);
-	// $('#venue-info').show();
-	// if(data.length < 10) {
-	// 	$('#venue-info').empty();
-	// 	for (i = 0; i < data.length; i++) {
-	// 		$('#venue-name').text(data[i]['venue']['name']);
-	// 		$('#venue-city').text(data[i]['venue']['city']);
-	// 		$('#venue-region').text(data[i]['venue']['region']);
-	// 		$('#venue-country').text(data[i]['venue']['country']);
-	// 	}
-	// }
+	$('#venue-info').show();
+	if(data.length < 10) {
+		$('#venue-info').empty();
+		for (i = 0; i < data.length; i++) {
+			$('#venue-info').append(data[i]['venue']['name']);
+			$('#venue-info').append(data[i]['venue']['city']);
+			$('#venue-info').append(data[i]['venue']['region']);
+			$('#venue-info').append(data[i]['venue']['country']);
+		}
+	}
 
-	// else {
-	// 	$('#venue-info').empty();
-	// 	for (i = data.length - 1 ; i > data.length - 10; i--) {
-	// 		$('#venue-info').append("<div id='venue-container'></div>")
-	// 		$('#venue-container').append("<li>" + data[i]['venue']['name'] + "</li>");
-	// 		$('#venue-container').append("<li>" + data[i]['venue']['city'] + "</li>");
-	// 		$('#venue-container').append("<li>" + data[i]['venue']['region'] + "</li>");
-	// 		$('#venue-container').append("<li>" + data[i]['venue']['country'] + "</li>" + "<br />");
-	// 	}
-	// }
+	else {
+		$('#venue-info').empty();
+		for (i = data.length - 1 ; i > data.length - 10; i--) {
+			// $('#venue-info').append("<div id='venue-container'></div>")
+			$('#venue-info').append("<li>" + data[i]['venue']['name'] + "</li>");
+			$('#venue-info').append("<li>" + data[i]['venue']['city'] + "</li>");
+			$('#venue-info').append("<li>" + data[i]['venue']['region'] + "</li>");
+			$('#venue-info').append("<li>" + data[i]['venue']['country'] + "</li>" + "<br />");
+		}
+	}
 }
 
 
