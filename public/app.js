@@ -1,5 +1,5 @@
 $(function() {
-
+	event.stopPropagation();
 
 //==========================================================================
 //======================start sign up process================================
@@ -39,8 +39,9 @@ $('#signout').click(function(){
 
 $('#search-submit').click(function() {
 	console.log("Testing search submit")
-	$('#artist-name').empty();
+	$('#artist-name').remove();
 	$('#venue-info').empty();
+	event.stopPropagation();
 	searchSubmit();
 });
 
@@ -233,7 +234,7 @@ $.get('/reviews', function(data){
 		var html = template(context);
 		$('body').append(html);
 	}
-
+	event.stopPropagation();
 });
 
 
@@ -247,6 +248,8 @@ var checkCookies = function() {
 		}).done(loggedIn);
 		
 	}
+
+	event.stopPropagation();
 }
 
 checkCookies();
@@ -325,20 +328,22 @@ var searchSubmit = function() {
 		dataType: 'json',
 		data: searchVals
 	}).done( showSearchResults );
-
+	
 }
 
 var showSearchResults = function(data) {
 	
 	console.log("testing show result function");
 	// console.log(data);
+	event.stopPropagation();
 
 	$('#artist-container').show();
 	$('#artist-name').empty();
 	$('#artist-name').html( data.name );
 
-	$('#artist-name').click(function(){
-
+	$('#artist-button').click(function(){
+		console.log('artist button is working');
+		event.stopPropagation();
 		showConcerts(data);
 
 	});
@@ -348,14 +353,18 @@ var showSearchResults = function(data) {
 
 
 var showConcerts = function(data) {
-		
+		event.stopPropagation();
 		$.ajax({
-			url: "http://api.bandsintown.com/artists/" + data.name + "/events?format=json&app_id=stannis&date=2009-01-01," + moment().format(),
+			url: "http://api.bandsintown.com/artists/" + data.name + "/events?format=json&app_id=stannis&date=2009-01-01," + moment().format() + "/",
 			type: "GET",
 			dataType: 'jsonp'
 		}).done(function(data) {
-			 console.log('hi');
+			
+			 console.log('show concerts is working');
+
 		});
+
+
 
 }
 
