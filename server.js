@@ -152,12 +152,15 @@ app.get('/users/:id', function(req, res) {
       res.send({
         id: user.id,
         username: user.username,
-        reviews: user.reviews
+        reviews: user.reviews,
+        image: user.image
       })
     };
   });
   
 });
+
+
 
 // ============================================
 // Search route

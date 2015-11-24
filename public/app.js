@@ -24,6 +24,15 @@ $('#signin-button').click(function(){
 });
 
 //==========================================================================
+//=======================go to profile page=================================
+//==========================================================================
+
+$('#profile-link').click(function(){
+	console.log('test profile link');
+	showProfilePage();
+});
+
+//==========================================================================
 //=======================logout=============================================
 //==========================================================================
 
@@ -160,6 +169,7 @@ var loggedIn = function(data) {
 	$('#signin-form').remove();
 	$('#signup-form').remove();
 	$('#signout').show();
+	$('#profile-link').show();
 	$("#new-review").show();
 	$("#new-review").click(function() {
 		showReviewForm();
@@ -280,7 +290,24 @@ checkCookies();
 //=======================Zach's Work Space==================================
 //==========================================================================
 
+//==========================================================================
+//=======================Render profile page================================
+//==========================================================================
 
+var showProfilePage = function() {
+	console.log('show profile is working');
+	$.get('/users/:id', function(data){
+			console.log(data);
+			var source = $("#profile-compile-template").html();
+			var template = Handlebars.compile(source);
+			var context = {username: data.username, image: data.image, reviews: data.reviews };
+			var html = template(context);
+			$('body').append(html);
+
+
+	});
+
+};
 
 
 
