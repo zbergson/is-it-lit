@@ -151,12 +151,16 @@ app.get('/users/:id', function(req, res) {
     } else {
       res.send({
         id: user.id,
+        email: user.email,
         username: user.username,
-        reviews: user.reviews
+        reviews: user.reviews,
+        image: user.image
       })
     };
   });
 });
+
+
 
 // ============================================
 // Search route
@@ -181,8 +185,20 @@ app.post('/search', function(req, res) {
 // ============================================
 
 app.put('/users/:id', function(req, res) {
-  User.findOneAndUpdate( {_id: req.params.id}, req.body, function(err, user) {
-    console.log( user )
+
+  password_hash = md5(req.body.edited_password_hash);
+
+  var userEdit = {
+    email: req.body.edited_email,
+    username: req.body.edited_username,
+    password_hash: password_hash,
+    image: req.body.edited_image
+  }
+
+  User.findOneAndUpdate( {_id: req.params.id}, userEdit, function(err, user) {
+    console.log(req.params.id);
+    console.log(req.body);
+    console.log( user );
     res.send( user );
   });
 })

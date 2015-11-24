@@ -24,6 +24,15 @@ $('#signin-button').click(function(){
 });
 
 //==========================================================================
+//=======================go to profile page=================================
+//==========================================================================
+
+$('#profile-link').click(function(){
+	console.log('test profile link');
+	showProfilePage();
+});
+
+//==========================================================================
 //=======================logout=============================================
 //==========================================================================
 
@@ -50,7 +59,7 @@ $('#search-submit').click(function() {
 $('#edit-profile').click(function() {
 	console.log("Testing edit profile button")
 	//calls function to show edit form
-	updateForm();
+	getOldInfo();
 })
 
 
@@ -170,6 +179,7 @@ var loggedIn = function(data) {
 	$('#signin-form').remove();
 	$('#signup-form').remove();
 	$('#signout').show();
+	$('#profile-link').show();
 	$("#new-review").show();
 	$("#new-review").click(function() {
 		showReviewForm();
@@ -290,7 +300,24 @@ checkCookies();
 //=======================Zach's Work Space==================================
 //==========================================================================
 
+//==========================================================================
+//=======================Render profile page================================
+//==========================================================================
 
+var showProfilePage = function() {
+	console.log('show profile is working');
+	$.get('/users/:id', function(data){
+			console.log(data);
+			var source = $("#profile-compile-template").html();
+			var template = Handlebars.compile(source);
+			var context = {username: data.username, image: data.image, reviews: data.reviews };
+			var html = template(context);
+			$('body').append(html);
+
+
+	});
+
+};
 
 
 
@@ -384,44 +411,63 @@ var loadConcerts = function(data) {
 	}
 }
 
-var updateForm = function() {
-	//displays form to edit user
-	var template = Handlebars.compile($('#edit-user-template').html());
-
-	$('#edit-container').append( template );
-
-	$('#edit-user-submit').click(function() {
-		console.log("testing edit-user-submit");
-		editUser();
-	});
-
-	//displays click event that fires off editUser function 
-}
-
-var editUser = function() {
+var getOldInfo = function() {
 	var id = Cookies.get("loggedinId");
-	console.log(id);
-
-	var ePw = $('#edited-email').val();
-	var eUn = $('#edited-username').val();
-	var eEm = $('#edited-password').val();
-	var eImg = $('#edited-profilePicture').val();
-
-
-	var editedUser = {
-		id: id,
-		edited_password_hash: ePw,
-	  edited_username: eUn,
-	  edited_email: eEm,
-	  edited_image: eImg
-	}
 
 	$.ajax({
 		url: "http://localhost:3000/users/" + id,
 		method: "GET",
+		dataType: 'json',
+	}).done( updateForm );
+
+
+}
+
+var updateForm = function(data) {
+	$('#edit-profile').hide();
+
+	var template = Handlebars.compile($('#edit-user-template').html());
+
+	$('#edit-container').append( template(data) );
+
+	$('#edit-user-submit').click(function() {
+		console.log("testing edit-user-submit");
+		$('#edit-container').hide();
+		editUser();
+	});
+
+}
+
+var editUser = function(data) {
+
+	var id = Cookies.get("loggedinId");
+	console.log(id);
+
+	var editedPasswordHash = $("input[id='edited-password']").val()
+	var editedUsername = $("input[id='edited-username']").val()
+	var editedEmail = $("input[id='edited-email']").val()
+	var editedImage = $("input[id='edited-profilePicture']").val()
+
+	var editedUser = {
+		id: id,
+		edited_password_hash: editedPasswordHash,
+	  edited_username: editedUsername,
+	  edited_email: editedEmail,
+	  edited_image: editedImage
+	}
+
+	console.log(editedUser);
+
+	$.ajax({
+		url: "http://localhost:3000/users/" + id,
+		method: "PUT",
 		data: editedUser,
 	}).done( showProfilePage );
 }
+
+
+
+
 
 
 
