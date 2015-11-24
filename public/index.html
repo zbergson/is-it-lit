@@ -25,6 +25,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#" id="signup-button">SIGN UP</a></li>
           <li><a href="#" id="signin-button">LOG IN</a></li>
+          <li><a href="#" id="profile-link" style="display: none">PROFILE</a></li>
           <li><a href="#" id="signout" style="display: none">LOG OUT</a></li>
         </ul>
       </div>
@@ -54,11 +55,11 @@
 
   </div>
   
-	<!-- <button id="signup-button">Sign up!</button>
+<!-- 	<button id="signup-button">Sign up!</button>
 	<button id="signin-button">Sign in!</button>
-	<button id="signout" style="display: none">Logout!</button> -->
-	<!-- <button id="new-review" style="display: none">New review!</button> -->
-
+	<button id="signout" style="display: none">Logout!</button>
+	<button id="new-review" style="display: none">New review!</button>
+ -->
 
 	
 
@@ -152,6 +153,22 @@
 		</form>
 
 	</template>
+
+	<!--List profile info -->
+
+		<script id="profile-compile-template" type="text/x-handlebars-template">
+			<div class="profile-view">
+				<img src={{image}}>
+				<h3>{{username}}</h3>
+		    {{#each reviews}}
+           <br>
+          Stars: {{ stars }} 
+            <br>
+          {{ content }}
+            <br>
+          {{/each}}
+			</div>
+		</script>
 
 	<!--List first 10 reviews -->
 		<template id="review-compile-template">
