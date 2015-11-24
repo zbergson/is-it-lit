@@ -264,7 +264,7 @@ var checkCookies = function() {
 		$.ajax({
 			url: "/users/" + Cookies.get("loggedinId"),
 			method: "GET",
-			dataTyp: "json"
+			dataType: "json"
 		}).done(loggedIn);
 		
 	}
@@ -310,7 +310,7 @@ checkCookies();
 
 var showProfilePage = function() {
 	console.log('show profile is working');
-	$.get('/users/:id', function(data){
+	$.get('/users/' + Cookies.get("loggedinId"), function(data){
 			console.log(data);
 			var source = $("#profile-compile-template").html();
 			var template = Handlebars.compile(source);
