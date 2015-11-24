@@ -391,28 +391,6 @@ var showSearchResults = function(data) {
 };
 
 
-// var getComplaints = function() {
-// 	$.ajax({
-// 		url: "http://localhost:3000/complaints",
-// 		method: "GET",
-// 		dataType: "json"
-// 	}).done(renderComplaints);
-// };
-
-// var renderComplaints = function(data) {
-// 	var resultDiv = $('#horizontal');
-// 	var complaintTemplate = $("#complaint-template");
-// 	complaintContainer.empty();
-// 	complaintContainer.show();
-// 	$('#new-instructor-link').hide();
-// 	$('#new-complaint-link').show();
-
-// 	var complaintTemplate = Handlebars.compile($('#complaint-template').html());
-// 	for(var i=0;i<data.length;i++) {
-// 		resultDiv.append(complaintTemplate(data[i]))
-// 	};
-// };
-
 
 var loadConcerts = function(data) {
 	var resultDiv = $("#concert-info");
