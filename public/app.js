@@ -58,7 +58,7 @@ $('#search-submit').click(function() {
 //==========================================================================
 
 var showSignInForm = function() {
-
+	$('#form-container').empty();
 	$('#signin-button').hide();
 	$('#signup-button').hide();
 	$('#signup-form').remove();
@@ -66,6 +66,7 @@ var showSignInForm = function() {
 	var template = Handlebars.compile($('#signin-form-template').html());
 
 	$('#form-container').append( template );
+	$('#form-container').show();
 
 	$('#signin-submit').click(function() {
 		console.log("testing submit");
@@ -83,12 +84,13 @@ var showSignInForm = function() {
 //==========================================================================
 
 var showSignUpForm = function() {
-
+	$('#form-container').empty();
 	$('#signup-button').hide();
 
 	var template = Handlebars.compile($('#signup-form-template').html());
 
 	$('#form-container').append( template );
+	$('#form-container').show();
 
 	$('#signup-submit').click(function() {
 		console.log("testing submit");
@@ -178,6 +180,31 @@ var loggedIn = function(data) {
 
 
 //==========================================================================
+//===========================Create new review==============================
+//==========================================================================
+
+
+var showReviewForm = function() {
+	$('#form-container').show();
+	$('#new-review').hide();
+
+	var template = Handlebars.compile($('#review-form-template').html());
+
+	$('#form-container').append( template );
+
+	$('#review-submit').click(function() {
+		console.log("testing submit");
+		
+
+		$('#review-form-template').hide();
+
+
+		createReview();
+	});
+
+};
+
+//==========================================================================
 //=======================AJAX post request for adding review================
 //==========================================================================
 
@@ -218,28 +245,6 @@ var createReview = function() {
 }
 
 //==========================================================================
-//===========================Create new review==============================
-//==========================================================================
-
-
-var showReviewForm = function() {
-	console.log("compiling form");
-	console.log(this);
-	// console.log(this).parent();
-	$('#new-review').hide();
-
-	var template = Handlebars.compile($('#review-form-template').html());
-
-	$(this).parent().append( template );
-	// $('#form-container').append( template );
-
-	$('#review-submit').click(createReview);
-	
-
-};
-
-
-//==========================================================================
 //=======================AJAX get request for listing reviews===============
 //==========================================================================
 
@@ -247,12 +252,13 @@ $.get('/reviews', function(data){
 
 
 	for (i = 0; i < data.length; i++) {
+		var reviewsContainer = $("#reviews-container")
 		console.log(data.length);
 		var source = $("#review-compile-template").html();
 		var template = Handlebars.compile(source);
 		var context = {stars: data[i]['stars'], username: data[i]['user_id'].username, content: data[i]['content'] }
 		var html = template(context);
-		$('body').append(html);
+		reviewsContainer.append(html);
 	}
 
 });
@@ -279,10 +285,16 @@ checkCookies();
 //=======================Katie's Work Space=================================
 //==========================================================================
 
+$("#home-button").click(function() {
+	homeReset();
+});
 
-
-
-
+var homeReset = function() {
+	$(".jumbotron").siblings().hide();
+	$("#menu").show();
+	$("#reviews-container").show();
+	$("#username-container").show();
+};
 
 
 
