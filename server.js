@@ -146,6 +146,7 @@ app.post('/users/:id/reviews', function(req, res) {
 			User.findOne(req.params.id).exec(function(err, user) {
 				user.reviews.push(review);
 				user.save();
+        console.log(user.reviews)
 			});
 		};
 	});
@@ -219,22 +220,23 @@ app.put('/users/:id', function(req, res) {
 
 app.put('/users/:id/reviews/:review_id', function(req, res) {
 
-        Review.findByIdAndUpdate(req.params.review_id, req.body, function(err, order) {
+        Review.findByIdAndUpdate({_id: req.params.review_id}, req.body, function(err, review) {
 
             if (err) {
 
                 console.log(err);
 
             }
-
+            
 
         });
 
         User.findById(req.params.id).then(function(user) {
-
+          console.log(user)
             user.reviews.forEach(function(review) {
 
                 if (review._id == req.params.review_id) {
+                  console.log("It should be working!!")
                     var oldReview = {
                       stars: review.stars,
                       content: review.content,
@@ -265,7 +267,8 @@ app.put('/users/:id/reviews/:review_id', function(req, res) {
                       }
                     });
                     
-                    var index = user.reviews.indexOf(order);
+                    var index = user.reviews.indexOf(review);
+                    console.log(index);
                     user.reviews.splice(index, 1);
                     user.save();
 
@@ -274,8 +277,11 @@ app.put('/users/:id/reviews/:review_id', function(req, res) {
                     user.save();
 
                     res.send(user);
+                    console.log(user);
 
                 }
+
+
 
             });
 

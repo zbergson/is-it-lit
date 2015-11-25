@@ -159,7 +159,7 @@
 
 	<template id="edit-review-template">
 
-		<form id="edit-review" data-id="{{_id}}">
+		<form id="edit-review">
 
 			<div class="form-group">
 			    <label for="stars">Stars:</label>
@@ -198,11 +198,11 @@
 	<!--List first 10 reviews -->
 
 		<template id="review-compile-template">
-			<div class="ten-reviews">
+			<div class="ten-reviews" data-id="{{id}}">
 				<h1>{{stars}}</h1>
 				<h3>{{username}}</h3>
 		    <h3>{{content}}</h3>
-		    <p class="edit-review">EDIT REVIEW</p>
+		    <p class="edit-review" data-id="{{id}}">EDIT REVIEW</p>
 			</div>
 		</template>
 

@@ -266,16 +266,18 @@ $.get('/reviews', function(data){
 		console.log(data.length);
 		var source = $("#review-compile-template").html();
 		var template = Handlebars.compile(source);
-		var context = {stars: data[i]['stars'], username: data[i]['user_id'].username, content: data[i]['content'] }
+		var context = {stars: data[i]['stars'], username: data[i]['user_id'].username, content: data[i]['content'], id: data[i]['_id'] }
 		var html = template(context);
 		reviewsContainer.append(html);
 	}
 
-	for (var i = 0; i < $(".edit-review").length; i ++) {
+
 		$(".edit-review").click(function() {
-			editReviewForm();
+			
+			var id = $(this).parent('.ten-reviews').attr('data-id');
+			editReviewForm(id);
 		})
-	}
+
 });
 
 
@@ -312,28 +314,31 @@ var homeReset = function() {
 };
 
 
-var editReviewForm = function() {
+var editReviewForm = function(id) {
 	$('#form-container').show();
 	var template = Handlebars.compile($('#edit-review-template').html());
+	
 
 	$('#form-container').append( template );
 
 	$('#edit-review-submit').click(function() {
 		console.log("testing submit");
 		
+		event.preventDefault();
 
 		$('#review-form-template').hide();
+		
 
-
-		editReview();
+		editReview(id);
 	});
 
 };
 
-var editReview = function() {
-	var starsInput = parseInt($('#stars').val());
-	var contentInput = $('#content').val();
-	var reviewId = $("#edit-review").attr("data-id");
+var editReview = function(id) {
+	var starsInput = parseInt($('#edit-stars').val());
+	var contentInput = $('#edit-content').val();
+	var reviewId = id
+	console.log(reviewId);
 
 	var reviewData = {
 		stars: starsInput,
@@ -341,7 +346,7 @@ var editReview = function() {
 	};
 
 		$.ajax({
-			url: "http://localhost:3000/users/" + userIdInput + "/reviews/" + reviewId,
+			url: "http://localhost:3000/users/" + Cookies.get("loggedinId") + "/reviews/" + reviewId,
 			type: "PUT",
 			dataType: 'json',
 			data: reviewData
