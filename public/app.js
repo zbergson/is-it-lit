@@ -190,31 +190,6 @@ var loggedIn = function(data) {
 
 
 //==========================================================================
-//===========================Create new review==============================
-//==========================================================================
-
-
-var showReviewForm = function() {
-	$('#form-container').show();
-	$('#new-review').hide();
-
-	var template = Handlebars.compile($('#review-form-template').html());
-
-	$('#form-container').append( template );
-
-	$('#review-submit').click(function() {
-		console.log("testing submit");
-		
-
-		$('#review-form-template').hide();
-
-
-		createReview();
-	});
-
-};
-
-//==========================================================================
 //=======================AJAX post request for adding review================
 //==========================================================================
 
@@ -253,6 +228,23 @@ var createReview = function() {
 			data: reviewData
 		}).done(console.log("created review!"));
 }
+
+//==========================================================================
+//===========================Create new review==============================
+//==========================================================================
+
+
+var showReviewForm = function() {
+	// $('#form-container').show();
+	$('#new-review').hide();
+
+	var template = Handlebars.compile($('#review-form-template').html());
+
+	$(this).parent().append( template );
+
+	$('#review-submit').click(createReview);
+
+};
 
 //==========================================================================
 //=======================AJAX get request for listing reviews===============
