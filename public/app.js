@@ -62,6 +62,16 @@ $('#edit-profile').click(function() {
 	getOldInfo();
 })
 
+//==========================================================================
+//=======================search submit click event==========================
+//==========================================================================
+
+$('#delete-user').click(function() {
+	console.log("Testing delete")
+	//calls function to show edit form
+	deleteUser();
+})
+
 
 //==========================================================================
 //=======================Render sign in form================================
@@ -533,7 +543,24 @@ var editUser = function(data) {
 	}).done( showProfilePage );
 }
 
+var deleteUser = function() {
 
+	var id = Cookies.get("loggedinId");
+	console.log(id);
+
+	var userToDelete = {
+		id: id
+	}
+
+	$.ajax({
+		url: "http://localhost:3000/users/" + id,
+		method: "DELETE",
+		data: userToDelete,
+	}).done( function() {
+		console.log(id + " deleted");
+	})
+
+}
 
 
 

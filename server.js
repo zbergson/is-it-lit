@@ -272,3 +272,14 @@ app.put('/users/:id/reviews/:review_id', function(req, res) {
     });
 
 // });
+
+// ============================================
+// Delete user
+// ============================================
+
+app.delete('/users/:id', function(req, res) {
+  User.findOneAndRemove({_id: req.params.id}, function(err) {
+    //maybe some kind of alert that says "are you sure?"
+    res.send("...");
+  })
+})
