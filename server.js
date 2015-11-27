@@ -245,10 +245,10 @@ app.put('/users/:id/reviews/:review_id', function(req, res) {
                       datetime: review.datetime,
                       artist: review.artist,
                       venue: {
-                        name: review.venue.venueName,
-                        city: review.venue.venueCity,
-                        region: review.venue.venueRegion,
-                        country: review.venue.venueCountry
+                        name: review.venue.name,
+                        city: review.venue.city,
+                        region: review.venue.region,
+                        country: review.venue.country
                       }
                     });
                     console.log(newReview);
