@@ -219,7 +219,7 @@ app.put('/users/:id', function(req, res) {
 
 app.put('/users/:id/reviews/:review_id', function(req, res) {
 
-        Review.findByIdAndUpdate(req.params.review_id, req.body, function(err, order) {
+        Review.findByIdAndUpdate(req.params.review_id, req.body, function(err, review) {
 
             if (err) {
 
@@ -271,4 +271,39 @@ app.put('/users/:id/reviews/:review_id', function(req, res) {
 
     });
 
-// });
+// ============================================
+// Delete review
+// ============================================
+app.delete('/users/:id/reviews/:review_id', function(req, res) {
+
+        Review.findById(req.params.review_id).remove(function(review, err) {
+
+            if (err) {
+
+                console.log(err);
+
+            }
+
+
+        });
+
+        User.findById(req.params.id).then(function(user) {
+
+            user.reviews.forEach(function(review) {
+
+                if (review._id == req.params.review_id) {
+
+                    var index = user.reviews.indexOf(review);
+                    user.reviews.splice(index, 1);
+                    user.save();
+
+                    res.send(user);
+
+                }
+
+
+            });
+
+        });
+
+    });

@@ -299,8 +299,12 @@ $.get('/reviews', function(data){
 	}
 
 	var editReviews = $(".edit-review");
-	for (var i = 0; i < editReviews.length; i ++) {
+	for (var i = 0; i < editReviews.length; i++) {
 		$(editReviews[i]).click(editReviewForm);
+	};
+	var deleteReviews = $(".delete-review");
+		for (var i = 0; i < deleteReviews.length; i++) {
+		$(deleteReviews[i]).click(deleteReview);
 	};
 });
 
@@ -385,7 +389,17 @@ var showProfilePage = function() {
 
 };
 
+var deleteReview = function() {
+	var reviewId = $(this).parent('.ten-reviews').attr('data-id');
+	
 
+	
+		$.ajax({
+			url: "http://localhost:3000/users/" + Cookies.get("loggedinId")  + "/reviews/" + reviewId,
+			type: "DELETE",
+			dataType: 'json',
+		}).done(console.log("deleted review"));
+}
 
 
 
