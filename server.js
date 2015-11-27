@@ -234,10 +234,12 @@ app.put('/users/:id/reviews/:review_id', function(req, res) {
 
             user.reviews.forEach(function(review) {
 
+
                 if (review._id == req.params.review_id) {
-                    var oldReview = {
-                      stars: review.stars,
-                      content: review.content,
+                  
+                    var newReview = new Review ({
+                      stars: req.body.stars,
+                      content: req.body.content,
                       user_id: review.user_id,
                       event_id: review.event_id,
                       datetime: review.datetime,
@@ -248,24 +250,10 @@ app.put('/users/:id/reviews/:review_id', function(req, res) {
                         region: review.venue.venueRegion,
                         country: review.venue.venueCountry
                       }
-                    };
-                    
-                    var newReview = new Review ({
-                      stars: req.body.stars,
-                      content: req.body.content,
-                      user_id: oldReview.user_id,
-                      event_id: oldReview.event_id,
-                      datetime: oldReview.datetime,
-                      artist: oldReview.artist,
-                      venue: {
-                        name: oldReview.venue.venueName,
-                        city: oldReview.venue.venueCity,
-                        region: oldReview.venue.venueRegion,
-                        country: oldReview.venue.venueCountry
-                      }
                     });
+                    console.log(newReview);
                     
-                    var index = user.reviews.indexOf(order);
+                    var index = user.reviews.indexOf(review);
                     user.reviews.splice(index, 1);
                     user.save();
 

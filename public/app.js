@@ -307,7 +307,7 @@ $.get('/reviews', function(data){
 
 var checkCookies = function() {
 
-	if (Cookies.get("loggedinId") != null) {
+	if (Cookies.get("loggedinId") !== null) {
 		$.ajax({
 			url: "/users/" + Cookies.get("loggedinId"),
 			method: "GET",
@@ -315,6 +315,7 @@ var checkCookies = function() {
 		}).done(loggedIn);
 		
 	}
+
 }
 
 checkCookies();
