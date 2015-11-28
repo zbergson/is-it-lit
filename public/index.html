@@ -16,6 +16,7 @@
 
 
 </head>
+
 <body>
 
 	<div class="navbar navbar-inverse navbar-fixed-top scrollclass" id="menu" >
@@ -68,51 +69,52 @@
 
 	<!-- Containers -->
 
-	<div id="form-container">
-		
-	</div>
+	<div id="form-container"></div>
 	<div id="username-container"></div>
+
 	<div id="profile-container">
 
 		<!--Delete User-->
 		<button id="delete-user">Delete User</button>
 
 		<!--Edit User-->
-
-	<div id="edit-container"></div>
+		<div id="edit-container"></div>
 	
-	<template id="edit-user-template">
+		<template id="edit-user-template">
 
-		<form id="edit-user-form">
+			<form id="edit-user-form">
 
-			<div class="form-group">
-			    <label for="exampleInputEmail1">Email address</label>
-			    <input type="email" class="form-control" id="edited-email" value="{{email}}">
-			 </div>
+				<div class="form-group">
+				    <label for="exampleInputEmail1">Email address</label>
+				    <input type="email" class="form-control" id="edited-email" value="{{email}}">
+				 </div>
 
-			<div class="form-group">
-			    <label for="exampleInputEmail1">Username</label>
-			    <input type="text" class="form-control" id="edited-username" value="{{username}}">
-			</div>
+				<div class="form-group">
+				    <label for="exampleInputEmail1">Username</label>
+				    <input type="text" class="form-control" id="edited-username" value="{{username}}">
+				</div>
 
-			<div class="form-group">
-			    <label for="exampleInputPassword1">Password</label>
-			    <input type="password" class="form-control" id="edited-password" value="enter a new password">
-			</div>
+				<div class="form-group">
+				    <label for="exampleInputPassword1">Password</label>
+				    <input type="password" class="form-control" id="edited-password" value="enter a new password">
+				</div>
 
-			<div class="form-group">
-			    <label for="exampleInputEmail1">Profile Picture</label>
-			    <input type="text" class="form-control" id="edited-profilePicture" value="add a new image!">
-			</div>
+				<div class="form-group">
+				    <label for="exampleInputEmail1">Profile Picture</label>
+				    <input type="text" class="form-control" id="edited-profilePicture" value="add a new image!">
+				</div>
 
-			<button type="submit" class="btn btn-default" id="edit-user-submit">Submit</button>
-		</form>
+				<button type="submit" class="btn btn-default" id="edit-user-submit">Submit</button>
+			</form>
 
-	</template>
-
-	
+		</template>
 
 	</div>
+	<!-- Placeholder edit profile button-->
+	<button id="edit-profile">Edit Profile</button>
+
+
+		
 	<div id="reviews-container"></div>
 
 	<div id="search-results-container">
@@ -124,57 +126,58 @@
 
 	<!--Sign up form -->
 
-	<template id="signup-form-template">
+	<div id="signupModal" class="modal" role="dialog">
+  	<div class="modal-dialog">
 
-		<form id="signup-form">
+    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close close-signup" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Sign up!</h4>
+	      </div>
 
-			<div class="form-group">
-			    <label for="exampleInputEmail1">Email address</label>
-			    <input type="email" class="form-control" id="email" placeholder="Email">
-			 </div>
+	      <div class="modal-body">
+	      	<div id="signup-container"></div>
 
-			<div class="form-group">
-			    <label for="exampleInputEmail1">Username</label>
-			    <input type="text" class="form-control" id="username" placeholder="Username">
-			</div>
+	        <template id="signup-form-template">
 
-			<div class="form-group">
-			    <label for="exampleInputPassword1">Password</label>
-			    <input type="password" class="form-control" id="password" placeholder="Password">
-			</div>
+						<form id="signup-form">
 
-			<div class="form-group">
-			    <label for="exampleInputEmail1">Profile Picture</label>
-			    <input type="text" class="form-control" id="profilePicture" placeholder="Image">
-			</div>
+							<div class="form-group">
+							    <label for="exampleInputEmail1">Email address</label>
+							    <input type="email" class="form-control" id="email" placeholder="Email">
+							 </div>
 
-			<button type="submit" class="btn btn-default" id="signup-submit">Submit</button>
-		</form>
+							<div class="form-group">
+							    <label for="exampleInputEmail1">Username</label>
+							    <input type="text" class="form-control" id="username" placeholder="Username">
+							</div>
 
-	</template>
+							<div class="form-group">
+							    <label for="exampleInputPassword1">Password</label>
+							    <input type="password" class="form-control" id="password" placeholder="Password">
+							</div>
 
-	<!--Sign in form -->
+							<div class="form-group">
+							    <label for="exampleInputEmail1">Profile Picture</label>
+							    <input type="text" class="form-control" id="profilePicture" placeholder="Image">
+							</div>
 
-		<template id="signin-form-template">
+							<button type="submit" class="btn btn-default" id="signup-submit">Submit</button>
+						</form>
 
-		<form id="signin-form">
+					</template>
 
-			<div class="form-group">
-			    <label for="exampleInputEmail1">Email address</label>
-			    <input type="email" class="form-control" id="email" placeholder="Email">
-			 </div>
+	      </div>
 
-			<div class="form-group">
-			    <label for="exampleInputPassword1">Password</label>
-			    <input type="password" class="form-control" id="password" placeholder="Password">
-			</div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default close-signup" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
 
-			<button type="submit" class="btn btn-default" id="signin-submit">Submit</button>
-		</form>
+	  </div>
+	</div>
 
-	</template>
-
-	</template>
 
 	<!--Create review -->
 
@@ -184,7 +187,7 @@
     <!-- Modal content-->
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <button type="button" class="close close-create-review" data-dismiss="modal">&times;</button>
 	        <h4 class="modal-title">Write a review!</h4>
 	      </div>
 	      
@@ -212,7 +215,53 @@
 	      </div>
 
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-default close-create-review" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
+
+
+	<!-- Sign in modal -->
+
+	<div id="signinModal" class="modal" role="dialog">
+  	<div class="modal-dialog">
+
+    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close close-signin" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Log in!</h4>
+	      </div>
+
+	      <div class="modal-body">
+	      	<div id="signin-container"></div>
+
+	        <template id="signin-form-template">
+
+						<form id="signin-form">
+
+							<div class="form-group">
+						    <label for="exampleInputEmail1">Email address</label>
+						    <input type="email" class="form-control" id="email" placeholder="Email">
+							</div>
+
+							<div class="form-group">
+						    <label for="exampleInputPassword1">Password</label>
+						    <input type="password" class="form-control" id="password" placeholder="Password">
+							</div>
+
+							<button type="submit" class="btn btn-default" id="signin-submit">Submit</button>
+						</form>
+
+					</template>
+
+
+	      </div>
+
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default close-signin" data-dismiss="modal">Close</button>
 	      </div>
 	    </div>
 
@@ -285,9 +334,7 @@
 		</div>
 </template>
 	
-<!-- Placeholder edit profile button-->
-		<button id="edit-profile">Edit Profile</button>
-		
+
 
 
 

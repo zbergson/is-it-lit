@@ -78,6 +78,7 @@ $('#delete-user').click(function() {
 //==========================================================================
 
 var showSignInForm = function() {
+	$("#signinModal").show();
 	$('#form-container').empty();
 	$('#signin-button').hide();
 	$('#signup-button').hide();
@@ -85,11 +86,16 @@ var showSignInForm = function() {
 
 	var template = Handlebars.compile($('#signin-form-template').html());
 
-	$('#form-container').append( template );
-	$('#form-container').show();
+	$('#signin-container').append( template );
+
+	$(".close-signin").click(function() {
+		$("#signin-form").remove();
+		$("#signinModal").hide();
+	});
 
 	$('#signin-submit').click(function() {
 		console.log("testing submit");
+		$("#signinModal").hide();
 
 		$('#signin-form-template').hide();
 
@@ -104,17 +110,23 @@ var showSignInForm = function() {
 //==========================================================================
 
 var showSignUpForm = function() {
-	$('#form-container').empty();
+	$("#signupModal").show();
+	$('#signup-container').empty();
 	$('#signup-button').hide();
 
 	var template = Handlebars.compile($('#signup-form-template').html());
 
-	$('#form-container').append( template );
-	$('#form-container').show();
+	$('#signup-container').append( template );
+
+	$(".close-signup").click(function() {
+		$("#signup-form").remove();
+		$("#signupModal").hide();
+	})
 
 	$('#signup-submit').click(function() {
 		console.log("testing submit");
 		
+		$("#signupModal").hide();
 
 		$('#signup-form-template').hide();
 
@@ -185,6 +197,8 @@ var signinSubmit = function() {
 //==========================================================================
 
 var loggedIn = function(data) {
+	$("#signin-form").remove();
+	$("#signup-form").remove();
 	homeReset();
 	$('#username-container').html('Welcome, ' + data.username);
 	$('#signup-button').hide();
@@ -255,7 +269,7 @@ var showReviewForm = function() {
 	// $('#form-container').show();
 	$('#new-review').hide();
 	$("#createReviewModal").show();
-	$(".close").click(function() {
+	$(".close-create-review").click(function() {
 		$("#review-form").remove();
 		$("#createReviewModal").hide();
 	})
@@ -343,14 +357,17 @@ $.get('/reviews', function(data){
 
 var checkCookies = function() {
 
-	if (Cookies.get("loggedinId") !== null) {
+	if (Cookies.get("loggedinId") != null) {
 		$.ajax({
 			url: "/users/" + Cookies.get("loggedinId"),
 			method: "GET",
 			dataType: "json"
 		}).done(loggedIn);
 		
-	}
+	} else {
+		$("#profile-container").hide();
+		$("#edit-profile").hide();
+	};
 
 }
 
@@ -437,7 +454,7 @@ var deleteReview = function() {
 			url: "http://localhost:3000/users/" + Cookies.get("loggedinId")  + "/reviews/" + reviewId,
 			type: "DELETE",
 			dataType: 'json',
-		}).done(console.log("deleted review"));
+		}).done(window.location.reload());
 }
 
 
