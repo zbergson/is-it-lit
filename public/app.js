@@ -256,7 +256,11 @@ var createReview = function() {
 			$("#review-form").remove();
 			$("#createReviewModal").hide();
 			$('#review-form-template').hide();
-			console.log(reviewData, "created review!")
+			console.log(reviewData, "created review!");
+			$('#search-results-container').empty();
+			$('#reviews-container').empty();
+			getAllReviews();
+			
 		});
 }
 
@@ -328,13 +332,24 @@ var editReview = function() {
 			type: "PUT",
 			dataType: 'json',
 			data: reviewData
-		}).done(console.log("edited review"));
+		}).done(function() {
+			$("#edit-review").remove();
+			$("#editReviewModal").hide();
+			$('#edit-review-template').hide();
+			console.log("edited review!");
+			$('#reviews-container').empty();
+			getAllReviews();
+		});
 };
 
 
 var editReviewForm = function(data) {
 	console.log(data);
-	// event.stopPropagation();
+	$("#editReviewModal").show();
+	$(".close-edit-review").click(function() {
+		$("#edit-review").remove();
+		$("#editReviewModal").hide();
+	});
 	var source = $("#edit-review-template").html();
 	var template = Handlebars.compile(source);
 	var context = {stars: data['stars'], content: data['content'], _id: data['_id'], user_id: data['user_id']};
@@ -344,7 +359,7 @@ var editReviewForm = function(data) {
 
 	// var template = Handlebars.compile($('#edit-review-template').html());
 
-	$("#form-container").append( html );
+	$("#edit-review-container").append( html );
 
 	$('#edit-review-submit').click(editReview);
 
@@ -355,35 +370,39 @@ var editReviewForm = function(data) {
 //=======================AJAX get request for listing reviews===============
 //==========================================================================
 
-$.get('/reviews', function(data){
+var getAllReviews = function() {
+	$.get('/reviews', function(data){
 
 
-	for (i = 0; i < data.length; i++) {
-		var reviewsContainer = $("#reviews-container")
-		var source = $("#review-compile-template").html();
-		var template = Handlebars.compile(source);
-		var context = {stars: data[i]['stars'], username: data[i]['user_id'].username, content: data[i]['content'], _id: data[i]['_id'], user_id: data[i]['user_id']._id };
-		var html = template(context);
-		reviewsContainer.append(html);
-	}
+		for (i = 0; i < data.length; i++) {
+			var reviewsContainer = $("#reviews-container")
+			var source = $("#review-compile-template").html();
+			var template = Handlebars.compile(source);
+			var context = {stars: data[i]['stars'], username: data[i]['user_id'].username, content: data[i]['content'], _id: data[i]['_id'], user_id: data[i]['user_id']._id };
+			var html = template(context);
+			reviewsContainer.append(html);
+		}
 
-	var editReviews = $(".edit-review");
-	for (var i = 0; i < editReviews.length; i++) {
-		$(editReviews[i]).click(getReviewInfo);
-	};
-	var deleteReviews = $(".delete-review");
-	for (var i = 0; i < deleteReviews.length; i++) {
-		$(deleteReviews[i]).click(deleteReview);
-	};
-
-	var tenReviews = $(".ten-reviews");
-	for (var i = 0; i < tenReviews.length; i++) {
-		if ($(tenReviews[i]).attr("user-id")!= Cookies.get("loggedinId")) {
-			$(tenReviews[i]).children(".edit-review").hide();
-			$(tenReviews[i]).children(".delete-review").hide();
+		var editReviews = $(".edit-review");
+		for (var i = 0; i < editReviews.length; i++) {
+			$(editReviews[i]).click(getReviewInfo);
 		};
-	};
-});
+		var deleteReviews = $(".delete-review");
+		for (var i = 0; i < deleteReviews.length; i++) {
+			$(deleteReviews[i]).click(deleteReview);
+		};
+
+		var tenReviews = $(".ten-reviews");
+		for (var i = 0; i < tenReviews.length; i++) {
+			if ($(tenReviews[i]).attr("user-id")!= Cookies.get("loggedinId")) {
+				$(tenReviews[i]).children(".edit-review").hide();
+				$(tenReviews[i]).children(".delete-review").hide();
+			};
+		};
+	});
+};
+
+getAllReviews();
 
 
 var checkCookies = function() {
@@ -485,7 +504,10 @@ var deleteReview = function() {
 			url: "http://localhost:3000/users/" + Cookies.get("loggedinId")  + "/reviews/" + reviewId,
 			type: "DELETE",
 			dataType: 'json',
-		}).done(window.location.reload());
+		}).done(function() {
+			$('#reviews-container').empty();
+			getAllReviews();
+		});
 }
 
 

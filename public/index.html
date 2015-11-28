@@ -238,6 +238,7 @@
 	      <div class="modal-body">
 	      	<div id="signin-container"></div>
 
+
 	        <template id="signin-form-template">
 
 						<form id="signin-form">
@@ -269,26 +270,46 @@
 	</div>
 
 
-		
+	<div id="editReviewModal" class="modal" role="dialog">
+  	<div class="modal-dialog">
+	    <div class="modal-content">
 
-	<template id="edit-review-template">
+	      <div class="modal-header">
+	        <button type="button" class="close close-signin" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Edit Review!</h4>
+	      </div>
 
-		<form id="edit-review" data-id="{{_id}}" user-id="{{user_id}}">
+	<div class="modal-body">
+	  <div id="edit-review-container"></div>
+	
+		<template id="edit-review-template">
 
-			<div class="form-group">
-			    <label for="stars">Stars:</label>
-			    <input type="text" class="form-control" id="edit-stars" name="stars" placeholder="Stars (out of 5)" value="{{stars}}">
-			 </div>
+			<form id="edit-review" data-id="{{_id}}" user-id="{{user_id}}">
 
-			<div class="form-group">
-			    <label for="content">Content:</label>
-			   	<textarea class="form-control" rows="3" id="edit-content" name="content" placeholder="How lit was it?">{{content}}</textarea>
+				<div class="form-group">
+				    <label for="stars">Stars:</label>
+				    <input type="text" class="form-control" id="edit-stars" name="stars" placeholder="Stars (out of 5)" value="{{stars}}">
+				 </div>
+
+				<div class="form-group">
+				    <label for="content">Content:</label>
+				   	<textarea class="form-control" rows="3" id="edit-content" name="content" placeholder="How lit was it?">{{content}}</textarea>
+				</div>
+
+				<button type="submit" class="btn btn-default" id="edit-review-submit">Submit</button>
+			</form>
+
+		</template>
+
+	</div>
+	<div class="modal-footer">
+	   <button type="button" class="btn btn-default close-edit-review" data-dismiss="modal">Close</button>
+	</div>
+
+				</div>
 			</div>
-
-			<button type="submit" class="btn btn-default" id="edit-review-submit">Submit</button>
-		</form>
-
-	</template>
+		</div>
+	</div>
 
 
 
@@ -316,7 +337,7 @@
 				<h1>{{stars}}</h1>
 				<h3>{{username}}</h3>
 		    <h3>{{content}}</h3>
-		    <p class="edit-review">EDIT REVIEW</p>
+		    <button type="button" class="btn btn-info btn-lg edit-review" data-toggle="modal" data-target="#editReviewModal">EDIT REVIEW</button>
 		    <p class="delete-review">DELETE REVIEW</p>
 			</div>
 		</template>
