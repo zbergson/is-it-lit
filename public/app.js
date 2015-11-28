@@ -185,6 +185,7 @@ var signinSubmit = function() {
 //==========================================================================
 
 var loggedIn = function(data) {
+	homeReset();
 	$('#username-container').html('Welcome, ' + data.username);
 	$('#signup-button').hide();
 	$('#signin-button').hide();
@@ -192,6 +193,7 @@ var loggedIn = function(data) {
 	$('#signup-form').remove();
 	$('#signout').show();
 	$('#profile-link').show();
+	$("#search-results-container").show();
 	$("#new-review").show();
 	$("#new-review").click(function() {
 		showReviewForm();
@@ -205,20 +207,20 @@ var loggedIn = function(data) {
 
 
 var createReview = function() {
-	$('#review-form-template').hide();
 	var starsInput = parseInt($('#stars').val());
 	var contentInput = $('#content').val();
 	var userIdInput = Cookies.get("loggedinId");
-	var eventIdInput = $(this).parent().parent().attr("data-id");
-	var datetimeInput = $(this).parent().parent().attr("datetime");
-	var artistInput = $(this).parent().parent().attr("artist");
-	var venueNameInput = $(this).parent().parent().attr("venue-name");
-	var venueCityInput = $(this).parent().parent().attr("venue-city");
-	var venueRegionInput = $(this).parent().parent().attr("venue-region");
-	var venueCountryInput = $(this).parent().parent().attr("venue-country");
+	var eventIdInput = $("#createReviewModal").attr("data-id");
+	var datetimeInput = $("#createReviewModal").attr("datetime");
+	var artistInput = $("#createReviewModal").attr("artist");
+	var venueNameInput = $("#createReviewModal").attr("venue-name");
+	var venueCityInput = $("#createReviewModal").attr("venue-city");
+	var venueRegionInput = $("#createReviewModal").attr("venue-region");
+	var venueCountryInput = $("#createReviewModal").attr("venue-country");
 
 	console.log(eventIdInput, datetimeInput, artistInput, venueNameInput, venueCityInput, venueRegionInput, venueCountryInput);
 	event.preventDefault();
+
 	var reviewData = {
 		stars: starsInput,
 		content: contentInput,
@@ -236,7 +238,12 @@ var createReview = function() {
 			type: "POST",
 			dataType: 'json',
 			data: reviewData
-		}).done(console.log("created review!"));
+		}).done(function() {
+			$("#review-form").remove();
+			$("#createReviewModal").hide();
+			$('#review-form-template').hide();
+			console.log(reviewData, "created review!")
+		});
 }
 
 //==========================================================================
@@ -247,10 +254,25 @@ var createReview = function() {
 var showReviewForm = function() {
 	// $('#form-container').show();
 	$('#new-review').hide();
+	$("#createReviewModal").show();
+	$(".close").click(function() {
+		$("#review-form").remove();
+		$("#createReviewModal").hide();
+	})
+
+	$("#createReviewModal").attr({
+	  "data-id": $(this).parent().attr("data-id"),
+	  "datetime": $(this).parent().attr("datetime"),
+	  "artist": $(this).parent().attr("artist"),
+	  "venue-name": $(this).parent().attr("venue-name"),
+	  "venue-city": $(this).parent().attr("venue-city"),
+	  "venue-region": $(this).parent().attr("venue-region"),
+	  "venue-country": $(this).parent().attr("venue-country"),
+	});
 
 	var template = Handlebars.compile($('#review-form-template').html());
 
-	$(this).parent().append( template );
+	$("#create-review-container").append( template );
 
 	$('#review-submit').click(createReview);
 
@@ -346,6 +368,8 @@ $("#home-button").click(function() {
 });
 
 var homeReset = function() {
+	$("#search-results-container").show();
+	$(".jumbotron").show();
 	$(".jumbotron").siblings().hide();
 	$("#menu").show();
 	$("#reviews-container").show();
@@ -385,6 +409,8 @@ var homeReset = function() {
 //==========================================================================
 
 var showProfilePage = function() {
+	$(".profile-view").remove();
+	$('#edit-user-form').remove();
 	console.log('show profile is working');
 	$.get('/users/' + Cookies.get("loggedinId"), function(data){
 			console.log(data);
@@ -392,8 +418,11 @@ var showProfilePage = function() {
 			var template = Handlebars.compile(source);
 			var context = {username: data.username, image: data.image, reviews: data.reviews };
 			var html = template(context);
-			$('body').append(html);
-
+			$('#profile-container').append(html);
+			$('#profile-container').show();
+			$('#profile-container').siblings().hide();
+			$("#edit-profile").show();
+			$("#menu").show();
 
 	});
 

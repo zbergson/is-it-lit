@@ -23,11 +23,11 @@
       
       <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
-        	<li><a href="#" id="home-button">HOME</a></li>
-          <li><a href="#" id="signup-button">SIGN UP</a></li>
-          <li><a href="#" id="signin-button">LOG IN</a></li>
-          <li><a href="#" id="profile-link" style="display: none">PROFILE</a></li>
-          <li><a href="#" id="signout" style="display: none">LOG OUT</a></li>
+        	<li><a href="#" class="nav-links" id="home-button">HOME</a></li>
+          <li><a href="#" class="nav-links" id="signup-button">SIGN UP</a></li>
+          <li><a href="#" class="nav-links" id="signin-button">LOG IN</a></li>
+          <li><a href="#" class="nav-links" id="profile-link" style="display: none">PROFILE</a></li>
+          <li><a href="#" class="nav-links" id="signout" style="display: none">LOG OUT</a></li>
         </ul>
       </div>
      
@@ -63,8 +63,7 @@
 	<button id="new-review" style="display: none">New review!</button> -->
 
 
-	<!-- Placeholder edit profile button-->
-	<button id="edit-profile">Edit Profile</button>
+	
 	
 
 	<!-- Containers -->
@@ -73,6 +72,47 @@
 		
 	</div>
 	<div id="username-container"></div>
+	<div id="profile-container">
+
+		<!--Delete User-->
+		<button id="delete-user">Delete User</button>
+
+		<!--Edit User-->
+
+	<div id="edit-container"></div>
+	
+	<template id="edit-user-template">
+
+		<form id="edit-user-form">
+
+			<div class="form-group">
+			    <label for="exampleInputEmail1">Email address</label>
+			    <input type="email" class="form-control" id="edited-email" value="{{email}}">
+			 </div>
+
+			<div class="form-group">
+			    <label for="exampleInputEmail1">Username</label>
+			    <input type="text" class="form-control" id="edited-username" value="{{username}}">
+			</div>
+
+			<div class="form-group">
+			    <label for="exampleInputPassword1">Password</label>
+			    <input type="password" class="form-control" id="edited-password" value="enter a new password">
+			</div>
+
+			<div class="form-group">
+			    <label for="exampleInputEmail1">Profile Picture</label>
+			    <input type="text" class="form-control" id="edited-profilePicture" value="add a new image!">
+			</div>
+
+			<button type="submit" class="btn btn-default" id="edit-user-submit">Submit</button>
+		</form>
+
+	</template>
+
+	
+
+	</div>
 	<div id="reviews-container"></div>
 
 	<div id="search-results-container">
@@ -138,24 +178,49 @@
 
 	<!--Create review -->
 
-		<template id="review-form-template">
+	<div id="createReviewModal" class="modal" role="dialog">
+  	<div class="modal-dialog">
 
-		<form id="review-form">
+    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Write a review!</h4>
+	      </div>
+	      
+	      <div class="modal-body">
+	      	<div id="create-review-container"></div>
+	        <template id="review-form-template">
 
-			<div class="form-group">
-			    <label for="stars">Stars:</label>
-			    <input type="text" class="form-control" id="stars" name="stars" placeholder="Stars (out of 5)">
-			 </div>
+						<form id="review-form">
 
-			<div class="form-group">
-			    <label for="content">Content:</label>
-			   	<textarea class="form-control" rows="3" id="content" name="content" placeholder="How lit was it?"></textarea>
-			</div>
+							<div class="form-group">
+							    <label for="stars">Stars:</label>
+							    <input type="text" class="form-control" id="stars" name="stars" placeholder="Stars (out of 5)">
+							 </div>
 
-			<button type="submit" class="btn btn-default" id="review-submit">Submit</button>
-		</form>
+							<div class="form-group">
+							    <label for="content">Content:</label>
+							   	<textarea class="form-control" rows="3" id="content" name="content" placeholder="How lit was it?"></textarea>
+							</div>
 
-	</template>
+							<button type="submit" class="btn btn-default" id="review-submit">Submit</button>
+						</form>
+
+					</template>
+
+	      </div>
+
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default close" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
+
+
+		
 
 	<template id="edit-review-template">
 
@@ -215,46 +280,14 @@
 			<p>{{venue.city}}</p>
 			<p>{{venue.region}}</p>
 			<p>{{venue.country}}</p>
-			<p class="create-review">CREATE REVIEW</p>
+			<!-- <p class="create-review">CREATE REVIEW</p> -->
+			<button type="button" class="btn btn-info btn-lg create-review" data-toggle="modal" data-target="#createReviewModal">CREATE REVIEW</button>
 		</div>
 </template>
-	<!--Edit User-->
-
-	<div id="edit-container"></div>
 	
-	<template id="edit-user-template">
-
-		<form id="edit-user-form">
-
-			<div class="form-group">
-			    <label for="exampleInputEmail1">Email address</label>
-			    <input type="email" class="form-control" id="edited-email" value="{{email}}">
-			 </div>
-
-			<div class="form-group">
-			    <label for="exampleInputEmail1">Username</label>
-			    <input type="text" class="form-control" id="edited-username" value="{{username}}">
-			</div>
-
-			<div class="form-group">
-			    <label for="exampleInputPassword1">Password</label>
-			    <input type="password" class="form-control" id="edited-password" value="enter a new password">
-			</div>
-
-			<div class="form-group">
-			    <label for="exampleInputEmail1">Profile Picture</label>
-			    <input type="text" class="form-control" id="edited-profilePicture" value="add a new image!">
-			</div>
-
-			<button type="submit" class="btn btn-default" id="edit-user-submit">Submit</button>
-		</form>
-
-	</template>
-
-	<!--Delete User-->
-	
-	<button id="delete-user">Delete User</button>
-
+<!-- Placeholder edit profile button-->
+		<button id="edit-profile">Edit Profile</button>
+		
 
 
 
