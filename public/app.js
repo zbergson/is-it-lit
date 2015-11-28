@@ -483,12 +483,13 @@ var showProfilePage = function() {
 			console.log(data);
 			var source = $("#profile-compile-template").html();
 			var template = Handlebars.compile(source);
-			var context = {username: data.username, image: data.image, reviews: data.reviews };
+			var context = {username: data.username, image: data.image, reviews: data.reviews};
 			var html = template(context);
-			$('#profile-container').append(html);
+			$('#profile-container').prepend(html);
 			$('#profile-container').show();
 			$('#profile-container').siblings().hide();
 			$("#edit-profile").show();
+			$("#delete-user").show();
 			$("#menu").show();
 
 	});

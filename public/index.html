@@ -23,6 +23,7 @@
     <div class="container">
       
       <div class="navbar-collapse collapse">
+      	
         <ul class="nav navbar-nav navbar-right">
         	<li><a href="#" class="nav-links" id="home-button">HOME</a></li>
           <li><a href="#" class="nav-links" id="signup-button">SIGN UP</a></li>
@@ -73,10 +74,7 @@
 	<div id="username-container"></div>
 
 	<div id="profile-container">
-
-		<!--Delete User-->
-		<button id="delete-user">Delete User</button>
-
+		
 		<!--Edit User-->
 		<div id="edit-container"></div>
 	
@@ -108,10 +106,14 @@
 			</form>
 
 		</template>
+		<!--Delete User-->
+		<button class="btn btn-info btn-lg" id="delete-user">Delete User</button>
+		<!-- Placeholder edit profile button-->
+		<button class="btn btn-info btn-lg" id="edit-profile">Edit Profile</button>
+		
 
 	</div>
-	<!-- Placeholder edit profile button-->
-	<button id="edit-profile">Edit Profile</button>
+	
 
 
 		
@@ -316,19 +318,49 @@
 
 	<!--List profile info -->
 
-		<script id="profile-compile-template" type="text/x-handlebars-template">
+		<template id="profile-compile-template">
+
 			<div class="profile-view">
-				<img src={{image}}>
-				<h3>{{username}}</h3>
-		    {{#each reviews}}
-           <br>
-          Stars: {{ stars }} 
-            <br>
-          {{ content }}
-            <br>
-          {{/each}}
+				<div class="row">
+					<div class="col-xs-12 col-sm-12 col-md-12">
+						</br></br>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-1 col-sm-1 col-md-1"></div>
+					<h1 class="col-xs-11 col-sm-11 col-md-11">My Profile</h1>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-1 col-sm-1 col-md-1"></div>
+				  <div class="col-xs-12 col-sm-2 col-md-2">
+				  	<img id="profile-image" src={{image}}>
+				  </div>
+					<div id="profile-username-container" class="col-xs-12 col-sm-9 col-md-9">
+						<h3 id="profile-username">{{username}}</h3>
+						
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-1 col-sm-1 col-md-1"></div>
+					<div class="col-xs-11 col-sm-11 col-md-11">
+						<h3>My Reviews:</h3>
+					</div>
+					<div class="col-xs-1 col-sm-1 col-md-1"></div>
+					<div class="col-xs-11 col-sm-11 col-md-11">
+				    {{#each reviews}}
+				    	<h4>{{artist}} @ {{venue.name}}, {{datetime}}</h4>
+		          Stars: {{ stars }} 
+		            <br>
+		          {{ content }}
+		            <br><br>
+		        {{/each}}
+	        </div>
+				</div>
 			</div>
-		</script>
+		</template>
 
 	<!--List first 10 reviews -->
 
