@@ -483,6 +483,9 @@ var showProfilePage = function() {
 			console.log(data);
 			var source = $("#profile-compile-template").html();
 			var template = Handlebars.compile(source);
+			data.reviews.forEach(function(n) {
+				n.datetime = moment(n.datetime).format('l');
+			});
 			var context = {username: data.username, image: data.image, reviews: data.reviews};
 			var html = template(context);
 			$('#profile-container').prepend(html);
