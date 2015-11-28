@@ -292,13 +292,30 @@ var showReviewForm = function() {
 
 };
 
+
+//==========================================================================
+//==============================Edit review=================================
+//==========================================================================
+
+var getReviewInfo = function() {
+	console.log("getting info");
+	var userId = $(this).parent().attr("user-id");
+	var reviewId = $(this).parent().attr("data-id");
+
+	$.ajax({
+		url: "http://localhost:3000/reviews/" + reviewId,
+		type: "GET",
+		dataType: "json"
+	}).done(editReviewForm);
+};
+
 var editReview = function() {
 	event.preventDefault();
 	$('#review-form-template').hide();
 	var starsInput = parseInt($('#edit-stars').val());
 	var contentInput = $('#edit-content').val();
-	var reviewId = $(this).parent().parent().attr("data-id");
-	var userId = $(this).parent().parent().attr("user-id");
+	var reviewId = $(this).parent().attr("data-id");
+	var userId = $(this).parent().attr("user-id");
 
 	var reviewData = {
 		stars: starsInput,
@@ -315,12 +332,19 @@ var editReview = function() {
 };
 
 
-var editReviewForm = function() {
+var editReviewForm = function(data) {
+	console.log(data);
 	// event.stopPropagation();
+	var source = $("#edit-review-template").html();
+	var template = Handlebars.compile(source);
+	var context = {stars: data['stars'], content: data['content'], _id: data['_id'], user_id: data['user_id']};
+	var html = template(context);
+	
 	$('#form-container').show();
-	var template = Handlebars.compile($('#edit-review-template').html());
 
-	$(this).parent().append( template );
+	// var template = Handlebars.compile($('#edit-review-template').html());
+
+	$("#form-container").append( html );
 
 	$('#edit-review-submit').click(editReview);
 
@@ -336,21 +360,28 @@ $.get('/reviews', function(data){
 
 	for (i = 0; i < data.length; i++) {
 		var reviewsContainer = $("#reviews-container")
-		console.log(data.length);
 		var source = $("#review-compile-template").html();
 		var template = Handlebars.compile(source);
-		var context = {stars: data[i]['stars'], username: data[i]['user_id'].username, content: data[i]['content'], _id: data[i]['_id'], user_id: data[i]['user_id']._id }
+		var context = {stars: data[i]['stars'], username: data[i]['user_id'].username, content: data[i]['content'], _id: data[i]['_id'], user_id: data[i]['user_id']._id };
 		var html = template(context);
 		reviewsContainer.append(html);
 	}
 
 	var editReviews = $(".edit-review");
 	for (var i = 0; i < editReviews.length; i++) {
-		$(editReviews[i]).click(editReviewForm);
+		$(editReviews[i]).click(getReviewInfo);
 	};
 	var deleteReviews = $(".delete-review");
-		for (var i = 0; i < deleteReviews.length; i++) {
+	for (var i = 0; i < deleteReviews.length; i++) {
 		$(deleteReviews[i]).click(deleteReview);
+	};
+
+	var tenReviews = $(".ten-reviews");
+	for (var i = 0; i < tenReviews.length; i++) {
+		if ($(tenReviews[i]).attr("user-id")!= Cookies.get("loggedinId")) {
+			$(tenReviews[i]).children(".edit-review").hide();
+			$(tenReviews[i]).children(".delete-review").hide();
+		};
 	};
 });
 

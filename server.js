@@ -217,6 +217,13 @@ app.put('/users/:id', function(req, res) {
 // Edit review
 // ============================================
 
+app.get('/reviews/:review_id', function(req, res) {
+  Review.findById(req.params.review_id).then(function(result) {
+    res.send(result);
+  });
+});
+
+
 app.put('/users/:id/reviews/:review_id', function(req, res) {
 
         Review.findByIdAndUpdate(req.params.review_id, req.body, function(err, review) {
