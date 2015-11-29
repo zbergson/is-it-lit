@@ -56,17 +56,17 @@ $('#search-submit').click(function() {
 //=======================search submit click event==========================
 //==========================================================================
 
-$('#edit-profile').click(function() {
+$(document).on("click", "#edit-profile", function() {
 	console.log("Testing edit profile button")
 	//calls function to show edit form
 	getOldInfo();
-})
+});
 
 //==========================================================================
 //=======================search submit click event==========================
 //==========================================================================
 
-$('#delete-user').click(function() {
+$(document).on("click", "#delete-user", function() {
 	console.log("Testing delete")
 	//calls function to show edit form
 	deleteUser();
@@ -513,8 +513,6 @@ var showProfilePage = function() {
 var deleteReview = function() {
 	var reviewId = $(this).parent('.ten-reviews').attr('data-id');
 	
-
-	
 		$.ajax({
 			url: "http://localhost:3000/users/" + Cookies.get("loggedinId")  + "/reviews/" + reviewId,
 			type: "DELETE",
@@ -632,11 +630,16 @@ var getOldInfo = function() {
 }
 
 var updateForm = function(data) {
-	$('#edit-profile').hide();
+	// $('#edit-profile').hide();
+	$("#editUserModal").show();
+	$(".close-edit-user").click(function() {
+		$("#edit-user-form").remove();
+		$("#editUserModal").hide();
+	})
 
 	var template = Handlebars.compile($('#edit-user-template').html());
 
-	$('#edit-container').append( template(data) );
+	$('#edit-user-container').append( template(data) );
 
 	$('#edit-user-submit').click(function() {
 		console.log("testing edit-user-submit");

@@ -49,6 +49,10 @@
 	font-size: 40px;
 }
 
+#edit-user-style {
+	color: black;
+}
+
 
 #profile-image {
 	max-width: 100%;
@@ -65,6 +69,8 @@
 #profile-username-container {
 	vertical-align: bottom;
 }
+
+
 
 .btn-info {
 	background-color: #1bccb5;
@@ -115,6 +121,7 @@
 body {
   font-family: 'Raleway', sans-serif;
 	letter-spacing:1px;
+	height: 100%;
   /*color:#fff;*/ 
 }
 

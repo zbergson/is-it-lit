@@ -75,11 +75,24 @@
 		<div class="col-xs-1 col-sm-1 col-md-1"></div>
 		<div class="col-xs-11 col-sm-11 md-11" id="username-container"></div>
 	</div>
-
+	
 	<div id="profile-container">
 		
-		<!--Edit User-->
-		<div id="edit-container"></div>
+			</div>
+		</div>
+	</div>
+
+		<div id="editUserModal" class="modal" role="dialog">
+  	<div class="modal-dialog">
+
+    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	      	<button type="button" class="close close-edit-user" data-dismiss="modal">&times;</button>
+	        <h4 id="edit-user-style" class="modal-title">Edit your profile!</h4>
+	      </div>
+		  <div class="modal-body">
+		  <div id="edit-user-container"></div>
 	
 		<template id="edit-user-template">
 
@@ -109,19 +122,14 @@
 			</form>
 
 		</template>
-
-		<div class="row profile-buttons">
-			<div class="col-xs-1 col-sm-1 col-md-1"></div>
-			<div class="col-xs-11 col-sm-11 col-md-11">
-				<!--Delete User-->
-				<button class="btn btn-info btn-lg" id="delete-user">Delete User</button>
-				<!-- Placeholder edit profile button-->
-				<button class="btn btn-info btn-lg" id="edit-profile">Edit Profile</button>
-		
 			</div>
-		</div>
-		
 
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default close-edit-user" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+
+	  </div>
 	</div>
 	
 
@@ -358,8 +366,13 @@
 				  </div>
 					<div id="profile-username-container" class="col-xs-12 col-sm-9 col-md-9">
 						<h3 id="profile-username">{{username}}</h3>
-						
 					</div>
+							<div id="profile-buttons">
+							<button class="btn btn-info btn-lg" id="delete-user">Delete User</button>
+					<!-- Placeholder edit profile button-->
+							<button class="btn btn-info btn-lg" id="edit-profile">Edit Profile</button>
+		</div>
+
 				</div>
 
 				<div class="row">
@@ -411,10 +424,6 @@
 </template>
 	
 
-
-
-
-	
 
 </body>
 </html>
