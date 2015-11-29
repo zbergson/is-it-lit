@@ -201,7 +201,7 @@ var loggedIn = function(data) {
 	$("#signup-form").remove();
 	homeReset();
 	$('#username-container').empty();
-	$('#username-container').append('<h1>Welcome, ' + data.username + "!</h1>");
+	$('#username-container').append('<h1 id="welcome-username">Welcome, ' + data.username + "!</h1>");
 	$('#signup-button').hide();
 	$('#signin-button').hide();
 	$('#signin-form').remove();
@@ -443,11 +443,12 @@ $("#home-button").click(function() {
 });
 
 var homeReset = function() {
+	$("body").removeClass("profile");
 	$("#search-results-container").show();
 	$(".jumbotron").show();
 	$(".jumbotron").siblings().hide();
 	$("#menu").show();
-	$("#reviews-container").show();
+	$(".reviews-wrapper").show();
 	$(".user-container").show();
 };
 
@@ -504,7 +505,7 @@ var showProfilePage = function() {
 			$("#menu").show();
 
 	});
-
+	$("body").addClass("profile");
 };
 
 var deleteReview = function() {

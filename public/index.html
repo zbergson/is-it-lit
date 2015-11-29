@@ -53,9 +53,8 @@
 			  <div class="form-group">
 			    <input type="text" class="form-control" placeholder="Search for an artist" id="search-bar">
 			  </div>
-			  <button type="submit" class="btn btn-info" id="search-submit">SUBMIT</button>
-			</form>
-			 <a href="#" class="btn btn-lg custom-btn-1" id="new-review" style="display: none">NEW REVIEW</a>  
+			  <button type="submit" class="btn custom-btn-1" id="search-submit">SUBMIT</button>
+			</form>  
 		</div>
 
   </div>
@@ -111,7 +110,7 @@
 
 		</template>
 
-		<div class="row">
+		<div class="row profile-buttons">
 			<div class="col-xs-1 col-sm-1 col-md-1"></div>
 			<div class="col-xs-11 col-sm-11 col-md-11">
 				<!--Delete User-->
@@ -127,8 +126,13 @@
 	
 
 
-		
-	<div id="reviews-container"></div>
+	<div class="row reviews-wrapper">
+		<div class="col-xs-1 col-sm-1 col-md-1"></div>
+		<div class="col-xs-11 col-sm-11 col-md-11">
+			<div id="reviews-container"></div>
+		</div>
+	</div>
+	
 
 	<div id="search-results-container">
 		<ul id="artist-container" style="display: none">
@@ -288,7 +292,7 @@
 	    <div class="modal-content">
 
 	      <div class="modal-header">
-	        <button type="button" class="close close-signin" data-dismiss="modal">&times;</button>
+	        <button type="button" class="close close-edit-review" data-dismiss="modal">&times;</button>
 	        <h4 class="modal-title">Edit Review!</h4>
 	      </div>
 
@@ -366,7 +370,8 @@
 		          Stars: {{ stars }} 
 		            <br>
 		          {{ content }}
-		            <br><br>
+		          <div class="profile-divider"></div>
+		            <br>
 		        {{/each}}
 	        </div>
 				</div>
@@ -376,20 +381,15 @@
 	<!--List first 10 reviews -->
 
 		<template id="review-compile-template">
-			<div class="ten-reviews row" data-id="{{_id}}" user-id="{{user_id}}">
-				<div class="col-xs-1 col-sm-1 col-md-1"></div>
-				<!-- <div class="line"></div> -->
-				<div class="col-xs-10 col-sm-10 col-md-10">
-					<h3>{{artist}} @ {{venue.name}}, {{datetime}}</h3>
-					<h4>Stars: {{stars}}</h4>
-			    <h4>"{{content}}"</h4>
-			    <h5>- {{username}}</h5>
-			    <button type="button" class="btn btn-info btn-lg edit-review" data-toggle="modal" data-target="#editReviewModal">EDIT REVIEW</button>
-			    <button type="button" class="btn btn-info btn-lg delete-review">DELETE REVIEW</button>
-			    <div class="divider"></div>
-				</div>
+			<div class="ten-reviews" data-id="{{_id}}" user-id="{{user_id}}">
+				<h3>{{artist}} @ {{venue.name}}, {{datetime}}</h3>
+				<h4>Stars: {{stars}}</h4>
+		    <h4>"{{content}}"</h4>
+		    <h5>- {{username}}</h5>
+		    <button type="button" class="btn btn-info btn-lg edit-review" data-toggle="modal" data-target="#editReviewModal">EDIT REVIEW</button>
+		    <button type="button" class="btn btn-info btn-lg delete-review">DELETE REVIEW</button>
+		    <div class="divider"></div>
 				
-				<!-- <div class="col-xs-1 col-sm-1 col-md-1"></div> -->
 			</div>
 		</template>
 
