@@ -161,6 +161,7 @@ app.get('/users/:id', function(req, res) {
       res.send({
         id: user.id,
         email: user.email,
+        password: user.password_hash,
         username: user.username,
         reviews: user.reviews,
         image: user.image

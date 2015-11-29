@@ -99,23 +99,23 @@
 			<form id="edit-user-form">
 
 				<div class="form-group">
-				    <label for="exampleInputEmail1">Email address</label>
+				    <label class="edit-user-labels" for="exampleInputEmail1">Email address</label>
 				    <input type="email" class="form-control" id="edited-email" value="{{email}}">
 				 </div>
 
 				<div class="form-group">
-				    <label for="exampleInputEmail1">Username</label>
+				    <label class="edit-user-labels" for="exampleInputEmail1">Username</label>
 				    <input type="text" class="form-control" id="edited-username" value="{{username}}">
 				</div>
 
 				<div class="form-group">
-				    <label for="exampleInputPassword1">Password</label>
-				    <input type="password" class="form-control" id="edited-password" value="enter a new password">
+				    <label class="edit-user-labels">Password</label>
+				    <input type="password" class="form-control" id="edited-password" value="">
 				</div>
 
 				<div class="form-group">
-				    <label for="exampleInputEmail1">Profile Picture</label>
-				    <input type="text" class="form-control" id="edited-profilePicture" value="add a new image!">
+				    <label class="edit-user-labels" for="exampleInputEmail1">Profile Picture</label>
+				    <input type="text" class="form-control" id="edited-profilePicture" value="{{image}}">
 				</div>
 
 				<button type="submit" class="btn btn-default" id="edit-user-submit">Submit</button>
