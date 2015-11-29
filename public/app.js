@@ -443,7 +443,9 @@ $("#home-button").click(function() {
 });
 
 var homeReset = function() {
+	$(".ten-reviews").remove();
 	$("body").removeClass("profile");
+	getAllReviews();
 	$("#search-results-container").show();
 	$(".jumbotron").show();
 	$(".jumbotron").siblings().hide();
