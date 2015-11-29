@@ -227,57 +227,43 @@ app.get('/reviews/:review_id', function(req, res) {
 
 app.put('/users/:id/reviews/:review_id', function(req, res) {
 
-        Review.findByIdAndUpdate(req.params.review_id, req.body, function(err, review) {
+        Review.findOneAndUpdate({_id: req.params.review_id}, req.body, function(err, review) {
 
             if (err) {
 
                 console.log(err);
 
             }
-
-
         });
 
-        User.findById(req.params.id).then(function(user) {
+          Review.findById(req.params.review_id, function(err, review) {
+              console.log(review);
+              User.findById(req.params.id).then(function(user) {
 
-            user.reviews.forEach(function(review) {
+                user.reviews.forEach(function(user_review) {
 
 
-                if (review._id == req.params.review_id) {
-                  
-                    var newReview = new Review ({
-                      stars: req.body.stars,
-                      content: req.body.content,
-                      user_id: review.user_id,
-                      event_id: review.event_id,
-                      datetime: review.datetime,
-                      artist: review.artist,
-                      venue: {
-                        name: review.venue.name,
-                        city: review.venue.city,
-                        region: review.venue.region,
-                        country: review.venue.country
-                      }
-                    });
-                    console.log(newReview);
-                    
-                    var index = user.reviews.indexOf(review);
-                    user.reviews.splice(index, 1);
-                    user.save();
+                  if (user_review._id == req.params.review_id) {
+                      
+                      var index = user.reviews.indexOf(user_review);
+                      user.reviews.splice(index, 1);
 
-                    user.reviews.push(newReview);
+                      user.reviews.push(review);
 
-                    user.save();
+                      user.save();
 
-                    res.send(user);
+                      res.send(user);
+                      
 
-                }
+                  }
 
-            });
+                });
 
-        });
+              });
 
-    });
+          });
+
+});
 
 
 // ============================================
