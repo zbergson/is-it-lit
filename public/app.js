@@ -569,11 +569,14 @@ var searchSubmit = function() {
 var showSearchResults = function(data) {
 	console.log("testing show result function");
 	console.log(data);
+	$(".concert-template").remove();
+	$("#concert-info").empty();
+	$("#search-results-container").show();
 	$(".ten-reviews").remove();
 	$('#artist-container').show();
 	$("#artist-name").remove();
 
-	$('#artist-container').append("<li id='artist-name'></li>");
+	$('#artist-container').append("<h3 id='artist-name'></h3>");
 	$('#artist-name').html( data.name );
 
 	$('#artist-name').click(function(){
@@ -591,7 +594,6 @@ var showSearchResults = function(data) {
 var loadConcerts = function(data) {
 	var resultDiv = $("#concert-info");
 	
-	resultDiv.empty();
 	resultDiv.show();
 
 	var concertTemplate = Handlebars.compile($("#concert-template").html());
