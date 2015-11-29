@@ -359,7 +359,7 @@ var editReviewForm = function(data) {
 	$('#form-container').show();
 
 	// var template = Handlebars.compile($('#edit-review-template').html());
-
+	$("#edit-review-container").empty();
 	$("#edit-review-container").append( html );
 
 	$('#edit-review-submit').click(editReview);
