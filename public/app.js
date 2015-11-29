@@ -200,7 +200,8 @@ var loggedIn = function(data) {
 	$("#signin-form").remove();
 	$("#signup-form").remove();
 	homeReset();
-	$('#username-container').html('Welcome, ' + data.username);
+	$('#username-container').empty();
+	$('#username-container').append('<h1>Welcome, ' + data.username + "!</h1>");
 	$('#signup-button').hide();
 	$('#signin-button').hide();
 	$('#signin-form').remove();
@@ -378,7 +379,14 @@ var getAllReviews = function() {
 			var reviewsContainer = $("#reviews-container")
 			var source = $("#review-compile-template").html();
 			var template = Handlebars.compile(source);
-			var context = {stars: data[i]['stars'], username: data[i]['user_id'].username, content: data[i]['content'], _id: data[i]['_id'], user_id: data[i]['user_id']._id };
+			var context = {stars: data[i]['stars'], 
+										 username: data[i]['user_id'].username, 
+										 content: data[i]['content'], 
+										 _id: data[i]['_id'], 
+										 user_id: data[i]['user_id']._id, 
+										 artist: data[i]['artist'],
+										 venue: data[i]['venue'],
+										 datetime: moment(data[i]['datetime']).format('l')};
 			var html = template(context);
 			reviewsContainer.append(html);
 		}
@@ -440,7 +448,7 @@ var homeReset = function() {
 	$(".jumbotron").siblings().hide();
 	$("#menu").show();
 	$("#reviews-container").show();
-	$("#username-container").show();
+	$(".user-container").show();
 };
 
 
@@ -560,7 +568,7 @@ var searchSubmit = function() {
 var showSearchResults = function(data) {
 	console.log("testing show result function");
 	console.log(data);
-
+	$(".ten-reviews").remove();
 	$('#artist-container').show();
 	$("#artist-name").remove();
 

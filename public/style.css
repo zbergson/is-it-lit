@@ -1,5 +1,5 @@
 .jumbotron {
-	background-image: linear-gradient(rgba(0,0,0, 0.4), rgba(0,0,0,0.4)), url(isitlit_jumbotron_seafoam_faded.jpg);
+	background-image: linear-gradient(rgba(0,0,0, 0.5), rgba(0,0,0,0.5)), url(isitlit_jumbotron_seafoam_faded.jpg);
 	height: 600px;
 	background-size: cover;
 	background-position: center;
@@ -19,6 +19,13 @@
 	font-size: 40px;
 	font-weight: 400;
 	color: white;
+}
+
+.line {
+	width: 100px;
+  height: 5px;
+  background-color: white;
+  margin: 0 auto;
 }
 
 #emoji {
@@ -58,6 +65,29 @@
 #profile-username-container {
 	vertical-align: bottom;
 }
+
+.btn-info {
+	background-color: #1bccb5;
+	border: 1px solid #1bccb5;
+}
+
+.btn-info:hover {
+	background-color: #18b7a2;
+	border: 1px solid #18b7a2;
+}
+
+.review-box {
+	border: 3px solid #18b7a2;
+}
+
+.divider {
+	width: 50%;
+  height: 3px;
+  background-color: #1bccb5;
+	margin-top: 30px;
+	margin-left: -30px;
+}
+
 /* =============================================================
    GENERAL STYLES
  ============================================================ */

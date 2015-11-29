@@ -41,6 +41,7 @@
   <div class="jumbotron">
 		<div class="header-text-container">
 			<h1 id="jumbotron-header">is it lit?</h1> 
+			<div class="line"></div>
     	<p id="jumbotron-text">a lit-ness test for concerts you've attended.</p>
     	<h1 id="emoji">&#128293;&#128293;&#128293;</h1> 
 		</div>
@@ -52,7 +53,7 @@
 			  <div class="form-group">
 			    <input type="text" class="form-control" placeholder="Search for an artist" id="search-bar">
 			  </div>
-			  <button type="submit" class="btn btn-default" id="search-submit">Submit</button>
+			  <button type="submit" class="btn btn-info" id="search-submit">SUBMIT</button>
 			</form>
 			 <a href="#" class="btn btn-lg custom-btn-1" id="new-review" style="display: none">NEW REVIEW</a>  
 		</div>
@@ -71,7 +72,10 @@
 	<!-- Containers -->
 
 	<div id="form-container"></div>
-	<div id="username-container"></div>
+	<div class="row user-container">
+		<div class="col-xs-1 col-sm-1 col-md-1"></div>
+		<div class="col-xs-11 col-sm-11 md-11" id="username-container"></div>
+	</div>
 
 	<div id="profile-container">
 		
@@ -372,12 +376,20 @@
 	<!--List first 10 reviews -->
 
 		<template id="review-compile-template">
-			<div class="ten-reviews" data-id="{{_id}}" user-id="{{user_id}}">
-				<h1>{{stars}}</h1>
-				<h3>{{username}}</h3>
-		    <h3>{{content}}</h3>
-		    <button type="button" class="btn btn-info btn-lg edit-review" data-toggle="modal" data-target="#editReviewModal">EDIT REVIEW</button>
-		    <p class="delete-review">DELETE REVIEW</p>
+			<div class="ten-reviews row" data-id="{{_id}}" user-id="{{user_id}}">
+				<div class="col-xs-1 col-sm-1 col-md-1"></div>
+				<!-- <div class="line"></div> -->
+				<div class="col-xs-10 col-sm-10 col-md-10">
+					<h3>{{artist}} @ {{venue.name}}, {{datetime}}</h3>
+					<h4>Stars: {{stars}}</h4>
+			    <h4>"{{content}}"</h4>
+			    <h5>- {{username}}</h5>
+			    <button type="button" class="btn btn-info btn-lg edit-review" data-toggle="modal" data-target="#editReviewModal">EDIT REVIEW</button>
+			    <button type="button" class="btn btn-info btn-lg delete-review">DELETE REVIEW</button>
+			    <div class="divider"></div>
+				</div>
+				
+				<!-- <div class="col-xs-1 col-sm-1 col-md-1"></div> -->
 			</div>
 		</template>
 
