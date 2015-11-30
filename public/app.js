@@ -380,7 +380,27 @@ var getAllReviews = function() {
 			var reviewsContainer = $("#reviews-container")
 			var source = $("#review-compile-template").html();
 			var template = Handlebars.compile(source);
-			var context = {stars: data[i]['stars'], 
+			var stars = "";
+			for (var j = 0; j < data[i]['stars']; j++) {
+				stars = stars + "★";
+			};
+			if (stars.length == 5) {
+				stars = stars + "🔥";
+			};
+			if (stars.length == 1) {
+				while (stars.length < 5) {
+					for (var k = 0; k <= 5 - stars.length; k++) {
+						stars = stars + "☆";
+					}
+				};
+				stars = stars + "💩";
+			};
+			while (stars.length < 5) {
+				for (var k = 0; k <= 5 - stars.length; k++) {
+					stars = stars + "☆";
+				}
+			};
+			var context = {stars: stars, 
 										 username: data[i]['user_id'].username, 
 										 content: data[i]['content'], 
 										 _id: data[i]['_id'], 
@@ -390,6 +410,7 @@ var getAllReviews = function() {
 										 datetime: moment(data[i]['datetime']).format('l')};
 			var html = template(context);
 			reviewsContainer.append(html);
+			console.log(stars);
 		}
 
 		var editReviews = $(".edit-review");
@@ -501,6 +522,27 @@ var showProfilePage = function() {
 			var template = Handlebars.compile(source);
 			data.reviews.forEach(function(n) {
 				n.datetime = moment(n.datetime).format('l');
+				var stars = "";
+				for (var j = 0; j < n['stars']; j++) {
+					stars = stars + "★";
+				};
+				if (stars.length == 5) {
+					stars = stars + "🔥";
+				};
+				if (stars.length == 1) {
+					while (stars.length < 5) {
+						for (var k = 0; k <= 5 - stars.length; k++) {
+							stars = stars + "☆";
+						}
+					};
+					stars = stars + "💩";
+				};
+				while (stars.length < 5) {
+					for (var k = 0; k <= 5 - stars.length; k++) {
+						stars = stars + "☆";
+					}
+				};
+				n.stars = stars;
 			});
 			var context = {username: data.username, image: data.image, reviews: data.reviews};
 			var html = template(context);

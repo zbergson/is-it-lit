@@ -414,7 +414,7 @@
 				    {{#each reviews}}
 				    <div class="profile-reviews" data-id="{{_id}}" user-id="{{user_id}}">
 				    	<h4>{{artist}} @ {{venue.name}}, {{datetime}}</h4>
-		          Stars: {{ stars }} 
+		          	{{ stars }} 
 		            <br>
 		          {{ content }}
 		          <div class="edit-review-profile">
@@ -434,7 +434,7 @@
 		<template id="review-compile-template">
 			<div class="ten-reviews" data-id="{{_id}}" user-id="{{user_id}}">
 				<h3>{{artist}} @ {{venue.name}}, {{datetime}}</h3>
-				<h4>Stars: {{stars}}</h4>
+				<h4>{{stars}}</h4>
 		    <h4>"{{content}}"</h4>
 		    <h5>- {{username}}</h5>
 		    <button type="button" class="btn btn-info btn-lg edit-review" data-toggle="modal" data-target="#editReviewModal">EDIT REVIEW</button>
