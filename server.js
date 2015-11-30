@@ -158,7 +158,6 @@ app.get('/users/:id', function(req, res) {
       console.log(err);
       res.statusCode = 503;
     } else {
-      
       res.send({
         id: user.id,
         email: user.email,
