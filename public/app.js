@@ -573,6 +573,7 @@ var checkCookies = function() {
 	} else {
 		$("#profile-container").hide();
 		$("#edit-profile").hide();
+		$("#artist-container").hide();
 	};
 
 }
