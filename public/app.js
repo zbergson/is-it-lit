@@ -802,12 +802,18 @@ var loadConcerts = function(data) {
 			data[i].datetime = moment(data[i].datetime).format('l');
 			resultDiv.append(concertTemplate(data[i]));
 		}
+
+
 	}
 
 	var createReview = $(".create-review")
 	for (var i = 0; i < createReview.length; i++) {
 		$(createReview[i]).click(showReviewForm);
 	};
+
+	if (Cookies.get("loggedinId") == null) {
+		createReview.hide();
+	}
 }
 
 var getOldInfo = function() {
