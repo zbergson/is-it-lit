@@ -42,7 +42,7 @@ app.listen(port);
 // ============================================
 
 app.get('/reviews', function(req, res) {
-  Review.find({}).populate('user_id').exec(function(err, reviews) {
+  Review.find({}).populate('user_id').sort({ created_at : -1 }).exec(function(err, reviews) {
       res.send(reviews);
   });
 });
