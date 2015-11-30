@@ -257,7 +257,10 @@
 
 							<div class="form-group">
 							    <label for="stars">Stars:</label>
-							    <input type="text" class="form-control" id="stars" name="stars" placeholder="Stars (out of 5)">
+							    <div class="rating" id="stars" name="stars" value="0">
+										<span class="5">☆</span><span class="4">☆</span><span class="3">☆</span><span class="2">☆</span><span class="1">☆</span>
+									</div>
+							    <!-- <input type="text" class="form-control" id="stars" name="stars" placeholder="Stars (out of 5)"> -->
 							 </div>
 
 							<div class="form-group">
@@ -346,7 +349,10 @@
 
 				<div class="form-group">
 				    <label class="edit-user-labels" for="stars">Stars:</label>
-				    <input type="text" class="form-control" id="edit-stars" name="stars" placeholder="Stars (out of 5)" value="{{stars}}">
+				    <div class="rating" id="edit-stars" name="stars" value="0">
+							<span class="5">☆</span><span class="4">☆</span><span class="3">☆</span><span class="2">☆</span><span class="1">☆</span>
+						</div>
+				    <!-- <input type="text" class="form-control" id="edit-stars" name="stars" placeholder="Stars (out of 5)" value="{{stars}}"> -->
 				 </div>
 
 				<div class="form-group">

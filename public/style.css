@@ -142,6 +142,28 @@
 .modal-title {
 	color: black;
 }
+
+.rating {
+	color: black;
+	margin: 0;
+}
+
+.modal {
+	color: black;
+}
+
+.rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  text-align: left;
+}
+
+.rating > span:hover:before,
+.rating > span:hover ~ span:before {
+   content: "\2605";
+   position: absolute;
+}
+
 /* =============================================================
    GENERAL STYLES
  ============================================================ */

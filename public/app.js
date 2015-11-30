@@ -222,7 +222,7 @@ var loggedIn = function(data) {
 
 
 var createReview = function() {
-	var starsInput = parseInt($('#stars').val());
+	var starsInput = parseInt($('#stars').attr("value"));
 	var contentInput = $('#content').val();
 	var userIdInput = Cookies.get("loggedinId");
 	var eventIdInput = $("#createReviewModal").attr("data-id");
@@ -293,6 +293,52 @@ var showReviewForm = function() {
 
 	$("#create-review-container").append( template );
 
+	$(".1").click(function() {
+		$("#stars").attr("value", "1");
+		$(".1").html("★");
+		$(".2").html("☆");
+		$(".3").html("☆");
+		$(".4").html("☆");
+		$(".5").html("☆");
+	});
+
+	$(".2").click(function() {
+		$("#stars").attr("value", "2");
+		$(".1").html("★");
+		$(".2").html("★");
+		$(".3").html("☆");
+		$(".4").html("☆");
+		$(".5").html("☆");
+	});
+
+	$(".3").click(function() {
+		$("#stars").attr("value", "3");
+		$(".1").html("★");
+		$(".2").html("★");
+		$(".3").html("★");
+		$(".4").html("☆");
+		$(".5").html("☆");
+	});
+
+	$(".4").click(function() {
+		$("#stars").attr("value", "4");
+		$(".1").html("★");
+		$(".2").html("★");
+		$(".3").html("★");
+		$(".4").html("★");
+		$(".5").html("☆");
+	});
+
+	$(".5").click(function() {
+		$("#stars").attr("value", "5");
+		$(".1").html("★");
+		$(".2").html("★");
+		$(".3").html("★");
+		$(".4").html("★");
+		$(".5").html("★");
+	});
+	
+
 	$('#review-submit').click(createReview);
 
 };
@@ -317,7 +363,7 @@ var getReviewInfo = function() {
 var editReview = function() {
 	event.preventDefault();
 	$('#review-form-template').hide();
-	var starsInput = parseInt($('#edit-stars').val());
+	var starsInput = parseInt($('#edit-stars').attr("value"));
 	var contentInput = $('#edit-content').val();
 	var reviewId = $(this).parent().attr("data-id");
 	var userId = $(this).parent().attr("user-id");
@@ -356,13 +402,87 @@ var editReviewForm = function(data) {
 	var template = Handlebars.compile(source);
 	var context = {stars: data['stars'], content: data['content'], _id: data['_id'], user_id: data['user_id']};
 	var html = template(context);
-	
+
 	$('#form-container').show();
 
 	// var template = Handlebars.compile($('#edit-review-template').html());
 	$("#edit-review-container").empty();
 	$("#edit-review-container").append( html );
 
+	if (data['stars'] == 1) {
+		$(".1").html("★");
+	};
+
+	if (data['stars'] == 2) {
+		$(".1").html("★");
+		$(".2").html("★");
+	};
+
+	if (data['stars'] == 3) {
+		$(".1").html("★");
+		$(".2").html("★");
+		$(".3").html("★");
+	};
+
+	if (data['stars'] == 4) {
+		$(".1").html("★");
+		$(".2").html("★");
+		$(".3").html("★");
+		$(".4").html("★");
+	};
+
+	if (data['stars'] == 5) {
+		$(".1").html("★");
+		$(".2").html("★");
+		$(".3").html("★");
+		$(".4").html("★");
+		$(".5").html("★");
+	};
+	
+	$(".1").click(function() {
+		$("#edit-stars").attr("value", "1");
+		$(".1").html("★");
+		$(".2").html("☆");
+		$(".3").html("☆");
+		$(".4").html("☆");
+		$(".5").html("☆");
+	});
+
+	$(".2").click(function() {
+		$("#edit-stars").attr("value", "2");
+		$(".1").html("★");
+		$(".2").html("★");
+		$(".3").html("☆");
+		$(".4").html("☆");
+		$(".5").html("☆");
+	});
+
+	$(".3").click(function() {
+		$("#edit-stars").attr("value", "3");
+		$(".1").html("★");
+		$(".2").html("★");
+		$(".3").html("★");
+		$(".4").html("☆");
+		$(".5").html("☆");
+	});
+
+	$(".4").click(function() {
+		$("#edit-stars").attr("value", "4");
+		$(".1").html("★");
+		$(".2").html("★");
+		$(".3").html("★");
+		$(".4").html("★");
+		$(".5").html("☆");
+	});
+
+	$(".5").click(function() {
+		$("#edit-stars").attr("value", "5");
+		$(".1").html("★");
+		$(".2").html("★");
+		$(".3").html("★");
+		$(".4").html("★");
+		$(".5").html("★");
+	});
 	$('#edit-review-submit').click(editReview);
 
 };
