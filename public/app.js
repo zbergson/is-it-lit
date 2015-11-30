@@ -385,8 +385,13 @@ var editReview = function() {
 			$('#edit-review-template').hide();
 			console.log("edited review!");
 			$('#reviews-container').empty();
-			getAllReviews();
-			// showProfilePage();
+
+			if ($('body').hasClass('background-img')) {
+				showProfilePage();
+			}
+			else {
+				getAllReviews();
+			}
 		});
 };
 
