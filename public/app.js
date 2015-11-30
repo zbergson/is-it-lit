@@ -340,7 +340,7 @@ var editReview = function() {
 			console.log("edited review!");
 			$('#reviews-container').empty();
 			getAllReviews();
-			showProfilePage();
+			// showProfilePage();
 		});
 };
 
