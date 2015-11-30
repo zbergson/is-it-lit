@@ -57,6 +57,11 @@
 	color: black;
 }
 
+#edit-review-profcolor {
+	color: white;
+	background-color: #1bccb5;
+}
+
 
 #profile-image {
 	max-width: 100%;
@@ -117,6 +122,11 @@
 	background-position: center;
 	background-attachment: fixed;
 	color: white;
+}
+
+.profile .edit-review-profile {
+	color: white;
+
 }
 
 /* =============================================================
@@ -195,6 +205,8 @@ hr {
   color:#fff;
   background-color:rgba(0, 0, 0,  0.42);
 }
+
+
 
   /* =============================================================
    FOOTER STYLES

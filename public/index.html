@@ -305,7 +305,7 @@
 
 	      <div class="modal-header">
 	        <button type="button" class="close close-edit-review" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Edit Review!</h4>
+	        <h4 id="edit-user-style" class="modal-title">Edit Review!</h4>
 	      </div>
 
 	<div class="modal-body">
@@ -316,12 +316,12 @@
 			<form id="edit-review" data-id="{{_id}}" user-id="{{user_id}}">
 
 				<div class="form-group">
-				    <label for="stars">Stars:</label>
+				    <label class="edit-user-labels" for="stars">Stars:</label>
 				    <input type="text" class="form-control" id="edit-stars" name="stars" placeholder="Stars (out of 5)" value="{{stars}}">
 				 </div>
 
 				<div class="form-group">
-				    <label for="content">Content:</label>
+				    <label class="edit-user-labels" for="content">Content:</label>
 				   	<textarea class="form-control" rows="3" id="edit-content" name="content" placeholder="How lit was it?">{{content}}</textarea>
 				</div>
 
@@ -383,11 +383,16 @@
 					<div class="col-xs-1 col-sm-1 col-md-1"></div>
 					<div class="col-xs-11 col-sm-11 col-md-11">
 				    {{#each reviews}}
+				    <div class="profile-reviews" data-id="{{_id}}" user-id="{{user_id}}">
 				    	<h4>{{artist}} @ {{venue.name}}, {{datetime}}</h4>
 		          Stars: {{ stars }} 
 		            <br>
 		          {{ content }}
+		          <div class="edit-review-profile">
+		         		<span class="glyphicon glyphicon-edit" aria-hidden="true"></span> 
+		          </div>
 		          <div class="profile-divider"></div>
+		          </div>
 		            <br>
 		        {{/each}}
 	        </div>

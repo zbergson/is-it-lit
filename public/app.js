@@ -53,7 +53,7 @@ $('#search-submit').click(function() {
 });
 
 //==========================================================================
-//=======================search submit click event==========================
+//=======================edit profile click event===========================
 //==========================================================================
 
 $(document).on("click", "#edit-profile", function() {
@@ -63,7 +63,7 @@ $(document).on("click", "#edit-profile", function() {
 });
 
 //==========================================================================
-//=======================search submit click event==========================
+//=======================delete user click event============================
 //==========================================================================
 
 $(document).on("click", "#delete-user", function() {
@@ -340,12 +340,13 @@ var editReview = function() {
 			console.log("edited review!");
 			$('#reviews-container').empty();
 			getAllReviews();
+			showProfilePage();
 		});
 };
 
 
 var editReviewForm = function(data) {
-	console.log(data);
+	console.log('hi');
 	$("#editReviewModal").show();
 	$(".close-edit-review").click(function() {
 		$("#edit-review").remove();
@@ -505,6 +506,7 @@ var showProfilePage = function() {
 			$("#edit-profile").show();
 			$("#delete-user").show();
 			$("#menu").show();
+			$(".edit-review-profile").click(getReviewInfo)
 
 	});
 	$("body").addClass("profile");
