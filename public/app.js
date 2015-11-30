@@ -160,7 +160,7 @@ var showSignUpForm = function() {
 	  event.preventDefault();
 
 	  $.ajax({
-			url: 'http://localhost:3000/users',
+			url: '/users',
 			method: 'POST',
 			dataType: 'json',
 			data: user
@@ -184,7 +184,7 @@ var signinSubmit = function() {
 		};
 
     $.ajax({
-			url: 'http://localhost:3000/login',
+			url: '/login',
 			type: 'POST',
 			dataType: 'json',
 			data: userLogin
@@ -250,7 +250,7 @@ var createReview = function() {
 		venueCountry: venueCountryInput
 	};
 		$.ajax({
-			url: "http://localhost:3000/users/" + userIdInput + "/reviews",
+			url: "/users/" + userIdInput + "/reviews",
 			type: "POST",
 			dataType: 'json',
 			data: reviewData
@@ -355,7 +355,7 @@ var getReviewInfo = function() {
 	var reviewId = $(this).parent().attr("data-id");
 
 	$.ajax({
-		url: "http://localhost:3000/reviews/" + reviewId,
+		url: "/reviews/" + reviewId,
 		type: "GET",
 		dataType: "json"
 	}).done(editReviewForm);
@@ -376,7 +376,7 @@ var editReview = function() {
 	
 
 		$.ajax({
-			url: "http://localhost:3000/users/" + userId + "/reviews/" + reviewId,
+			url: "/users/" + userId + "/reviews/" + reviewId,
 			type: "PUT",
 			dataType: 'json',
 			data: reviewData
@@ -415,6 +415,7 @@ var editReviewForm = function(data) {
 	$("#edit-review-container").empty();
 	$("#edit-review-container").append( html );
 
+
 	if (data['stars'] == 1) {
 		$(".1").html("★");
 	};
@@ -445,6 +446,8 @@ var editReviewForm = function(data) {
 		$(".5").html("★");
 	};
 	
+	$("#edit-stars").attr("value", data['stars'])
+
 	$(".1").click(function() {
 		$("#edit-stars").attr("value", "1");
 		$(".1").html("★");
@@ -558,7 +561,7 @@ var getAllReviews = function() {
 	});
 };
 
-getAllReviews();
+
 
 
 var checkCookies = function() {
@@ -574,6 +577,7 @@ var checkCookies = function() {
 		$("#profile-container").hide();
 		$("#edit-profile").hide();
 		$("#artist-container").hide();
+		getAllReviews();
 	};
 
 }
@@ -691,7 +695,7 @@ var deleteReview = function() {
 	var reviewId = $(this).parent('.ten-reviews').attr('data-id');
 	
 		$.ajax({
-			url: "http://localhost:3000/users/" + Cookies.get("loggedinId")  + "/reviews/" + reviewId,
+			url: "/users/" + Cookies.get("loggedinId")  + "/reviews/" + reviewId,
 			type: "DELETE",
 			dataType: 'json',
 		}).done(function() {
@@ -735,7 +739,7 @@ var searchSubmit = function() {
 	}
 
 	$.ajax({
-		url: "http://localhost:3000/search",
+		url: "/search",
 		type: "POST",
 		dataType: 'json',
 		data: searchVals
@@ -769,7 +773,7 @@ var showSearchResults = function(data) {
 	// function(){
 
 		$.ajax({
-			url: "http://api.bandsintown.com/artists/" + data.name + "/events?format=json&app_id=stannis&date=2009-01-01," + moment().format(),
+			url: "https://api.bandsintown.com/artists/" + data.name + "/events?format=json&app_id=stannis&date=2009-01-01," + moment().format(),
 			type: "GET",
 			dataType: 'jsonp'
 		}).done(loadConcerts);
@@ -798,7 +802,7 @@ var loadConcerts = function(data) {
 
 	else {
 		$('#concerts-container').empty();
-		for (i = data.length - 1 ; i > data.length - 10; i--) {
+		for (i = data.length - 1 ; i > data.length - 20; i--) {
 			data[i].datetime = moment(data[i].datetime).format('l');
 			resultDiv.append(concertTemplate(data[i]));
 		}
@@ -820,7 +824,7 @@ var getOldInfo = function() {
 	var id = Cookies.get("loggedinId");
 
 	$.ajax({
-		url: "http://localhost:3000/users/" + id,
+		url: "/users/" + id,
 		method: "GET",
 		dataType: 'json',
 	}).done( updateForm );
@@ -869,7 +873,7 @@ var editUser = function(data) {
 	console.log(editedUser);
 
 	$.ajax({
-		url: "http://localhost:3000/users/" + id,
+		url: "/users/" + id,
 		method: "PUT",
 		data: editedUser,
 	}).done( showProfilePage );
@@ -885,7 +889,7 @@ var deleteUser = function() {
 	}
 
 	$.ajax({
-		url: "http://localhost:3000/users/" + id,
+		url: "/users/" + id,
 		method: "DELETE",
 		data: userToDelete,
 	}).done( function(){

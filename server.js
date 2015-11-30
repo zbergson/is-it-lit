@@ -25,7 +25,10 @@ app.use(cookieParser());
 // ============================================
 // DB
 // ============================================
-mongoose.connect('mongodb://localhost/is_it_lit');
+var mongoUri = process.env.MONGOLAB_URI || 'mongodb://localhost/is_it_lit';
+console.log('==================================='+ mongoUri + '====================================');
+mongoose.connect(mongoUri);
+
 
 // ============================================
 // Models
@@ -49,12 +52,12 @@ app.get('/reviews', function(req, res) {
 
 
 // app.get('/test', function(req, res) {
-// 	bandsintown
-//   		.getArtist('Drake')
-//   		.then(function(events) {
-//   			console.log(moment().format());
-//    			res.send(events);
-//   	});
+//  bandsintown
+//      .getArtist('Drake')
+//      .then(function(events) {
+//        console.log(moment().format());
+//          res.send(events);
+//    });
 // });
 
 // ============================================
@@ -66,7 +69,7 @@ app.post('/users', function(req, res) {
   password_hash = md5(req.body.password);
 
   var user = new User({
-  	email: req.body.email,
+    email: req.body.email,
     username: req.body.username,
     password_hash: password_hash,
     image: req.body.image
@@ -118,10 +121,10 @@ app.post("/login", function(req, res) {
 // ============================================
 
 app.post('/users/:id/reviews', function(req, res) {
-	var review = new Review ({
-		stars: req.body.stars,
-		content: req.body.content,
-		user_id: req.body.user_id,
+  var review = new Review ({
+    stars: req.body.stars,
+    content: req.body.content,
+    user_id: req.body.user_id,
     event_id: req.body.event_id,
     datetime: req.body.datetime,
     artist: req.body.artist,
@@ -131,24 +134,24 @@ app.post('/users/:id/reviews', function(req, res) {
       region: req.body.venueRegion,
       country: req.body.venueCountry
     }
-	});
+  });
 
-	review.save(function(err) {
-		if (err) {
-			console.log(err);
-			res.statusCode = 503;
-		} else {
-			console.log("created review");
-			res.send({
-				stars: review.stars,
-				content: review.content
-			});
-			User.findById(req.params.id).exec(function(err, user) {
-				user.reviews.push(review);
-				user.save();
-			});
-		};
-	});
+  review.save(function(err) {
+    if (err) {
+      console.log(err);
+      res.statusCode = 503;
+    } else {
+      console.log("created review");
+      res.send({
+        stars: review.stars,
+        content: review.content
+      });
+      User.findById(req.params.id).exec(function(err, user) {
+        user.reviews.push(review);
+        user.save();
+      });
+    };
+  });
 
 });
 
@@ -314,4 +317,3 @@ app.delete('/users/:id', function(req, res) {
     res.send("...");
   })
 })
-
