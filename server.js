@@ -158,6 +158,7 @@ app.get('/users/:id', function(req, res) {
       console.log(err);
       res.statusCode = 503;
     } else {
+      
       res.send({
         id: user.id,
         email: user.email,
@@ -310,7 +311,6 @@ app.delete('/users/:id/reviews/:review_id', function(req, res) {
 
 app.delete('/users/:id', function(req, res) {
   User.findOneAndRemove({_id: req.params.id}, function(err) {
-    //maybe some kind of alert that says "are you sure?"
     res.send("...");
   })
 })

@@ -67,9 +67,10 @@ $(document).on("click", "#edit-profile", function() {
 //==========================================================================
 
 $(document).on("click", "#delete-user", function() {
-	console.log("Testing delete")
-	//calls function to show edit form
-	deleteUser();
+	console.log("Testing delete");
+	if (confirm("Are you sure?")) {
+		deleteUser();
+	}
 })
 
 
@@ -691,9 +692,10 @@ var deleteUser = function() {
 		url: "http://localhost:3000/users/" + id,
 		method: "DELETE",
 		data: userToDelete,
-	}).done( function() {
-		console.log(id + " deleted");
-	})
+	}).done( function(){
+		Cookies.remove('loggedinId');
+		location.reload()
+	});
 
 }
 
