@@ -444,8 +444,12 @@ $("#home-button").click(function() {
 });
 
 var homeReset = function() {
+	$("#artist-content").remove();
+	$("#search-bar").val("");
+	$('#username-container').show();
+	$("#artist-container").hide();
 	$(".ten-reviews").remove();
-	$("body").removeClass("profile");
+	$("body").removeClass("background-img");
 	getAllReviews();
 	$("#search-results-container").show();
 	$(".jumbotron").show();
@@ -509,7 +513,7 @@ var showProfilePage = function() {
 			$(".edit-review-profile").click(getReviewInfo)
 
 	});
-	$("body").addClass("profile");
+	$("body").addClass("background-img");
 };
 
 var deleteReview = function() {
@@ -575,13 +579,23 @@ var showSearchResults = function(data) {
 	$("#concert-info").empty();
 	$("#search-results-container").show();
 	$(".ten-reviews").remove();
+	$(".jumbotron").hide();
+	$('#username-container').hide();
 	$('#artist-container').show();
-	$("#artist-name").remove();
 
-	$('#artist-container').append("<h3 id='artist-name'></h3>");
-	$('#artist-name').html( data.name );
+	var source = $("#artist-template").html();
+	var template = Handlebars.compile(source);
+	
+	var context = {name: data.name, image_url: data.image_url};
+	var artist = template(context);
+	$('#artist-container').prepend(artist);
+	$("#artist-name").html(data.name);
 
-	$('#artist-name').click(function(){
+	// $("#artist-container").append("<img class='artist-img' src='" + data.image_url + "'>");
+
+	// $('#artist-name').click()
+
+	// function(){
 
 		$.ajax({
 			url: "http://api.bandsintown.com/artists/" + data.name + "/events?format=json&app_id=stannis&date=2009-01-01," + moment().format(),
@@ -589,26 +603,32 @@ var showSearchResults = function(data) {
 			dataType: 'jsonp'
 		}).done(loadConcerts);
 		
-	});
-	
+	// };
+	$("body").addClass("background-img");
 };
 
+// var showArtistPage = function(data) {
+// 	$("#artist-container").append()
+// };
+
 var loadConcerts = function(data) {
-	var resultDiv = $("#concert-info");
+	var resultDiv = $("#concerts-container");
 	
 	resultDiv.show();
 
 	var concertTemplate = Handlebars.compile($("#concert-template").html());
 	if(data.length < 10) {
-		$('#concert-info').empty();
+		$('#concerts-container').empty();
 		for (i = 0; i < data.length; i++) {
+			data[i].datetime = moment(data[i].datetime).format('l');
 			resultDiv.append(concertTemplate(data[i]));
 		}
 	}
 
 	else {
-		$('#concert-info').empty();
+		$('#concerts-container').empty();
 		for (i = data.length - 1 ; i > data.length - 10; i--) {
+			data[i].datetime = moment(data[i].datetime).format('l');
 			resultDiv.append(concertTemplate(data[i]));
 		}
 	}

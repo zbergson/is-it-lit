@@ -141,17 +141,46 @@
 		</div>
 	</div>
 	
+	<div id="artist-container">
 
-	<div id="search-results-container" class="row">
-		<div class="col-xs-1 col-sm-1 col-md-1"></div>
-		<div class="col-xs-11 col-sm-11 col-md-11">
-			<ul id="artist-container" style="display: none">
-				<div id="concert-info" style="display:none">
+		<div class="row">
+			<div class="col-xs-1 col-sm-1 col-md-1"></div>
+			<div class="col-xs-11 col-sm-11 col-md-11"><h3>Concerts:</h3></div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-1 col-sm-1 col-md-1"></div>
+			<div class="col-xs-11 col-sm-11 col-md-11" id="concerts-container"></div>
+		</div>
+	</div>
+
+
+	<template id="artist-template">
+		<div id="artist-content">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12"><br></div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-1 col-sm-1 col-md-1"></div>
+				<div class="col-xs-11 col-sm-11 col-md-11"><h1>Artist Profile</h1></div>
+			</div>
+
+			<div id="artist" class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12"></div>
+				<div class="col-xs-1 col-sm-1 col-md-1"></div>
+			  <div class="col-xs-12 col-sm-2 col-md-2">
+			  	<img id="artist-image" src={{image_url}}>
+			 	</div>
+
+		  	<div id="artist-name-container" class="col-xs-12 col-sm-9 col-md-9">
+					<h3 id="artist-name"></h3>
 				</div>
-			</ul>
+
+			</div>	
 		</div>
 		
-	</div>
+	</template>
 
 	<!--Sign up form -->
 
@@ -367,11 +396,11 @@
 					<div id="profile-username-container" class="col-xs-12 col-sm-9 col-md-9">
 						<h3 id="profile-username">{{username}}</h3>
 					</div>
-							<div id="profile-buttons">
-							<button class="btn btn-info btn-lg" id="delete-user">Delete User</button>
-					<!-- Placeholder edit profile button-->
-							<button class="btn btn-info btn-lg" id="edit-profile">Edit Profile</button>
-		</div>
+					<div id="profile-buttons">
+						<button class="btn btn-info btn-lg" id="delete-user">Delete User</button>
+						<!-- Placeholder edit profile button-->
+						<button class="btn btn-info btn-lg" id="edit-profile">Edit Profile</button>
+					</div>
 
 				</div>
 
@@ -418,13 +447,11 @@
 
 	<template id="concert-template">
 		<div class="concert-container" data-id="{{id}}" datetime="{{datetime}}" artist="{{artists.0.name}}" venue-name="{{venue.name}}" venue-city="{{venue.city}}" venue-region="{{venue.region}}" venue-country="{{venue.country}}">
-		
-			<p>{{venue.name}}</p>
-			<p>{{venue.city}}</p>
-			<p>{{venue.region}}</p>
-			<p>{{venue.country}}</p>
+			<h4>{{venue.name}}, {{venue.city}}, {{venue.region}}, {{venue.country}}, {{datetime}}</h4>
+			
 			<!-- <p class="create-review">CREATE REVIEW</p> -->
-			<button type="button" class="btn btn-info btn-lg create-review" data-toggle="modal" data-target="#createReviewModal">CREATE REVIEW</button>
+			<button type="button" class="btn btn-info btn-lg create-review" data-toggle="modal" data-target="#createReviewModal">WRITE REVIEW</button>
+			<div class="divider"></div>
 		</div>
 </template>
 	
