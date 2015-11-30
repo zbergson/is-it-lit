@@ -488,8 +488,10 @@ var homeReset = function() {
 //==========================================================================
 
 var showProfilePage = function() {
+	$('.jumbotron').hide();
 	$(".profile-view").remove();
 	$('#edit-user-form').remove();
+	
 	console.log('show profile is working');
 	$.get('/users/' + Cookies.get("loggedinId"), function(data){
 			console.log(data);
@@ -500,6 +502,7 @@ var showProfilePage = function() {
 			});
 			var context = {username: data.username, image: data.image, reviews: data.reviews};
 			var html = template(context);
+
 			$('#profile-container').prepend(html);
 			$('#profile-container').show();
 			$('#profile-container').siblings().hide();
