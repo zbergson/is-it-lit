@@ -254,14 +254,14 @@ var createReview = function() {
 			dataType: 'json',
 			data: reviewData
 		}).done(function() {
+			homeReset();
+			$("#artist-content").remove();
 			$("#review-form").remove();
 			$("#createReviewModal").hide();
 			$('#review-form-template').hide();
 			console.log(reviewData, "created review!");
 			$('#search-results-container').empty();
 			$('#reviews-container').empty();
-			getAllReviews();
-			
 		});
 }
 
@@ -373,6 +373,7 @@ var editReviewForm = function(data) {
 //==========================================================================
 
 var getAllReviews = function() {
+	$(".ten-reviews").remove();
 	$.get('/reviews', function(data){
 
 
@@ -387,7 +388,7 @@ var getAllReviews = function() {
 			if (stars.length == 5) {
 				stars = stars + "🔥";
 			};
-			if (stars.length == 1) {
+			if (stars.length == 1 || stars.length == 0) {
 				while (stars.length < 5) {
 					for (var k = 0; k <= 5 - stars.length; k++) {
 						stars = stars + "☆";
@@ -410,7 +411,6 @@ var getAllReviews = function() {
 										 datetime: moment(data[i]['datetime']).format('l')};
 			var html = template(context);
 			reviewsContainer.append(html);
-			console.log(stars);
 		}
 
 		var editReviews = $(".edit-review");
@@ -464,12 +464,16 @@ $("#home-button").click(function() {
 	homeReset();
 });
 
+//==========================================================================
+//===========================home reset function============================
+//==========================================================================
+
 var homeReset = function() {
+	$(".ten-reviews").remove();
 	$("#artist-content").remove();
 	$("#search-bar").val("");
 	$('#username-container').show();
 	$("#artist-container").hide();
-	$(".ten-reviews").remove();
 	$("body").removeClass("background-img");
 	getAllReviews();
 	$("#search-results-container").show();
@@ -479,8 +483,6 @@ var homeReset = function() {
 	$(".reviews-wrapper").show();
 	$(".user-container").show();
 };
-
-
 
 
 
@@ -529,7 +531,7 @@ var showProfilePage = function() {
 				if (stars.length == 5) {
 					stars = stars + "🔥";
 				};
-				if (stars.length == 1) {
+				if (stars.length == 1 || stars.length == 0) {
 					while (stars.length < 5) {
 						for (var k = 0; k <= 5 - stars.length; k++) {
 							stars = stars + "☆";
